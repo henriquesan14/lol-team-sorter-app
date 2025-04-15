@@ -6,11 +6,12 @@ import { MatchmakingService } from '../../../shared/services/matchmaking.service
 import { CommonModule } from '@angular/common';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzTableModule } from 'ng-zorro-antd/table';
+import { AppStarRatingComponent } from '../../../shared/components/app-star-rating/app-star-rating.component';
 
 @Component({
   selector: 'app-generate-matchmaking',
   standalone: true,
-  imports: [CommonModule, NzButtonModule, NzTableModule ],
+  imports: [CommonModule, NzButtonModule, NzTableModule, AppStarRatingComponent ],
   templateUrl: './generate-matchmaking.component.html',
   styleUrl: './generate-matchmaking.component.css'
 })
@@ -24,6 +25,7 @@ export class GenerateMatchmakingComponent implements OnInit {
   indeterminate = false;
   setOfCheckedId = new Set<string>();
 
+  rate= 5;
   ngOnInit(): void {
     this.getPlayers();
   }

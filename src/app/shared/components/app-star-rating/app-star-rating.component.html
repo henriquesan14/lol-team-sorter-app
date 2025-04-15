@@ -1,0 +1,10 @@
+<div class="stars">
+    @for(star of [].constructor(maxStars); track $index){
+        <span 
+        class="star" 
+        [class.filled]="$index < rating" 
+        (click)="setRating($index + 1)">
+        ★
+      </span>
+    }
+</div>

@@ -52,7 +52,9 @@
         <td>{{ player.mainLane }}</td>
         <td>{{ player.secondaryLane }}</td>
         <td>{{ player.tier }} - {{ player.rank }}</td>
-        <td>{{ player.stars }}</td>
+        <td>
+          <app-star-rating [(rating)]="player.stars"></app-star-rating>
+        </td>
       </tr>
     }@empty {}
   </tbody>
