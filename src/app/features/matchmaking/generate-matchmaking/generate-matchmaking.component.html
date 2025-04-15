@@ -1,18 +1,40 @@
 <h1>Sorteio de Times</h1>
 
-<div class="btn-group">
-  <button (click)="generateMatchmaking('STARS')">Sortear por Estrelas</button>
-  <button (click)="generateMatchmaking('TIER')">Sortear por Elo</button>
+<div class="send-request">
+  <button
+    class="me-1"
+    nz-button
+    nzType="primary"
+    [disabled]="setOfCheckedId.size !== 10"
+    (click)="generateMatchmaking('STARS')"
+  >
+    Sorteio por estrelas
+  </button>
+  <button
+    nz-button
+    nzType="primary"
+    [disabled]="setOfCheckedId.size !== 10"
+    (click)="generateMatchmaking('TIER')"
+  >
+  Sorteio por elo
+  </button>
+  <span>{{ setOfCheckedId.size }} jogadores selecionados</span>
 </div>
 
 <h2>Jogadores</h2>
-<table>
+<nz-table [nzData]="players">
   <thead>
     <tr>
-      <th></th> <!-- Coluna para o checkbox -->
+      <th
+            [nzChecked]="checked"
+            [nzIndeterminate]="indeterminate"
+            nzLabel="Select all"
+            (nzCheckedChange)="onAllChecked($event)"
+          ></th>
       <th>Nome</th>
       <th>NickName</th>
       <th>Main Lane</th>
+      <th>Secondary Lane</th>
       <th>Elo</th>
       <th>Estrelas</th>
     </tr>
@@ -20,22 +42,21 @@
   <tbody>
     @for(player of players; track player.id){
       <tr>
-        <td>
-          <input
-            type="checkbox"
-            [checked]="isSelected(player)"
-            (change)="toggleSelection(player)"
-          />
-        </td>
+        <td
+          [nzChecked]="setOfCheckedId.has(player.id)"
+          [nzLabel]="player.name"
+          (nzCheckedChange)="onItemChecked(player.id, $event)"
+        ></td>
         <td>{{ player.name }}</td>
         <td>{{ player.riotName }}#{{ player.riotTag }}</td>
         <td>{{ player.mainLane }}</td>
-        <td>{{ player.tier }}-{{ player.rank }}</td>
+        <td>{{ player.secondaryLane }}</td>
+        <td>{{ player.tier }} - {{ player.rank }}</td>
         <td>{{ player.stars }}</td>
       </tr>
     }@empty {}
   </tbody>
-</table>
+</nz-table>
 
 @if(matchmakingResult){
     <div >

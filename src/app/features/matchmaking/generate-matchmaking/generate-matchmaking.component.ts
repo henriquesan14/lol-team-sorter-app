@@ -4,11 +4,13 @@ import { Player } from '../../../core/models/player.interface';
 import { Matchmaking } from '../../../core/models/matchmaking.interface';
 import { MatchmakingService } from '../../../shared/services/matchmaking.service';
 import { CommonModule } from '@angular/common';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzTableModule } from 'ng-zorro-antd/table';
 
 @Component({
   selector: 'app-generate-matchmaking',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NzButtonModule, NzTableModule ],
   templateUrl: './generate-matchmaking.component.html',
   styleUrl: './generate-matchmaking.component.css'
 })
@@ -18,7 +20,9 @@ export class GenerateMatchmakingComponent implements OnInit {
   matchmakingResult!: Matchmaking;
   
   players: Player[] = [];
-  selectedPlayers: string[] = [];
+  checked = false;
+  indeterminate = false;
+  setOfCheckedId = new Set<string>();
 
   ngOnInit(): void {
     this.getPlayers();
@@ -33,9 +37,10 @@ export class GenerateMatchmakingComponent implements OnInit {
   }
 
   generateMatchmaking(mode: string){
+    const playerIds = this.players.filter(data => this.setOfCheckedId.has(data.id)).map(p => p.id);
     this.matchmakingService.generateMatchmaking({
       mode,
-      playerIds: this.selectedPlayers
+      playerIds
     }).subscribe({
       next: (res) => {
         this.matchmakingResult = res;
@@ -43,23 +48,29 @@ export class GenerateMatchmakingComponent implements OnInit {
     })
   }
 
-  reset(): void {
-    this.matchmakingResult = <Matchmaking>{};
-    this.selectedPlayers = [];
-  }
-
-  isSelected(player: Player): boolean {
-    return this.selectedPlayers.some(p => p === player.id);
-  }
-
-  toggleSelection(player: Player): void {
-    if (this.isSelected(player)) {
-      this.selectedPlayers = this.selectedPlayers.filter(p => p !== player.id);
+  updateCheckedSet(id: string, checked: boolean): void {
+    if (checked) {
+      this.setOfCheckedId.add(id);
     } else {
-      this.selectedPlayers.push(player.id);
+      this.setOfCheckedId.delete(id);
     }
   }
 
+  refreshCheckedStatus(): void {
+    const listOfEnabledData = this.players.filter(({ disabled }) => !disabled);
+    this.checked = listOfEnabledData.every(({ id }) => this.setOfCheckedId.has(id));
+    this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) && !this.checked;
+  }
 
+  onItemChecked(id: string, checked: boolean): void {
+    this.updateCheckedSet(id, checked);
+    this.refreshCheckedStatus();
+  }
 
+  onAllChecked(checked: boolean): void {
+    this.players
+      .filter(({ disabled }) => !disabled)
+      .forEach(({ id }) => this.updateCheckedSet(id, checked));
+    this.refreshCheckedStatus();
+  }
 }
