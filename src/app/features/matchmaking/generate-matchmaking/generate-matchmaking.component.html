@@ -1,0 +1,63 @@
+<h1>Sorteio de Times</h1>
+
+<div class="btn-group">
+  <button (click)="generateMatchmaking('STARS')">Sortear por Estrelas</button>
+  <button (click)="generateMatchmaking('TIER')">Sortear por Elo</button>
+</div>
+
+<h2>Jogadores</h2>
+<table>
+  <thead>
+    <tr>
+      <th></th> <!-- Coluna para o checkbox -->
+      <th>Nome</th>
+      <th>NickName</th>
+      <th>Main Lane</th>
+      <th>Elo</th>
+      <th>Estrelas</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for(player of players; track player.id){
+      <tr>
+        <td>
+          <input
+            type="checkbox"
+            [checked]="isSelected(player)"
+            (change)="toggleSelection(player)"
+          />
+        </td>
+        <td>{{ player.name }}</td>
+        <td>{{ player.riotName }}#{{ player.riotTag }}</td>
+        <td>{{ player.mainLane }}</td>
+        <td>{{ player.tier }}-{{ player.rank }}</td>
+        <td>{{ player.stars }}</td>
+      </tr>
+    }@empty {}
+  </tbody>
+</table>
+
+@if(matchmakingResult){
+    <div >
+        <h2>Resultado</h2>
+        <div class="teams">
+        <div>
+            <h3>Time Azul</h3>
+            <ul>
+            @for(p of matchmakingResult.blueTeam.players; track $index){
+                <li>{{ p.name }}</li>
+            }
+            </ul>
+        </div>
+
+        <div>
+            <h3>Time Vermelho</h3>
+            <ul>
+            @for(p of matchmakingResult.redTeam.players; track $index){
+                <li>{{ p.name }}</li>
+            }
+            </ul>
+        </div>
+        </div>
+    </div>
+}
