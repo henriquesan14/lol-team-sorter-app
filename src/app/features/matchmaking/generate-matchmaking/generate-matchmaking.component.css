@@ -5,3 +5,100 @@
 .send-request span {
   margin-left: 8px;
 }
+
+.matchmaking-result {
+  padding: 24px;
+  background-color: #f9fafb;
+  color: #1f2937;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.result-title {
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 24px;
+  color: #111827;
+  font-weight: 600;
+}
+
+.teams-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.team-box {
+  flex: 1;
+  min-width: 280px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  transition: box-shadow 0.3s ease;
+}
+
+.team-box:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+.blue-team {
+  border-left: 6px solid #3b82f6;
+}
+
+.red-team {
+  border-left: 6px solid #ef4444;
+}
+
+.team-box h3 {
+  margin-bottom: 16px;
+  font-size: 20px;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.team-box .team-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #3b82f6; /* Azul */
+}
+
+.red-team .team-color {
+  background-color: #ef4444; /* Vermelho */
+}
+
+.team-box p {
+  margin: 6px 0;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.team-box ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 12px;
+}
+
+.team-box li {
+  padding: 8px 0;
+  font-size: 16px;
+  color: #111827;
+  border-bottom: 1px solid #f3f4f6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.team-box li .player-name {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.team-box li .player-lane {
+  font-size: 14px;
+  color: #6b7280;
+}

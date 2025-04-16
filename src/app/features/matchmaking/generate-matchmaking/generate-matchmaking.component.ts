@@ -6,19 +6,21 @@ import { MatchmakingService } from '../../../shared/services/matchmaking.service
 import { CommonModule } from '@angular/common';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzGridModule  } from 'ng-zorro-antd/grid';
+import { NzCardComponent  } from 'ng-zorro-antd/card';
 import { AppStarRatingComponent } from '../../../shared/components/app-star-rating/app-star-rating.component';
 
 @Component({
   selector: 'app-generate-matchmaking',
   standalone: true,
-  imports: [CommonModule, NzButtonModule, NzTableModule, AppStarRatingComponent ],
+  imports: [CommonModule, NzButtonModule, NzTableModule, AppStarRatingComponent, NzGridModule, NzCardComponent ],
   templateUrl: './generate-matchmaking.component.html',
   styleUrl: './generate-matchmaking.component.css'
 })
 export class GenerateMatchmakingComponent implements OnInit {
   
   constructor(private playerService: PlayerService, private matchmakingService: MatchmakingService){}
-  matchmakingResult!: Matchmaking;
+  matchmakingResult?: Matchmaking;
   
   players: Player[] = [];
   checked = false;
@@ -74,5 +76,9 @@ export class GenerateMatchmakingComponent implements OnInit {
       .filter(({ disabled }) => !disabled)
       .forEach(({ id }) => this.updateCheckedSet(id, checked));
     this.refreshCheckedStatus();
+  }
+
+  reset(){
+    this.matchmakingResult = undefined;
   }
 }

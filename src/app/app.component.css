@@ -69,12 +69,21 @@ nz-header {
   box-shadow: 0 1px 4px rgba(0,21,41,.08);
 }
 
+nz-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 nz-content {
+  flex: 1;
   margin: 24px;
+  overflow: auto;
 }
 
 .inner-content {
   padding: 24px;
   background: #fff;
-  height: 100%;
+  min-height: 100%;
+  overflow: auto;
 }

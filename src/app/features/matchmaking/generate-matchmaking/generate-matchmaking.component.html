@@ -1,86 +1,92 @@
 <h1>Sorteio de Times</h1>
 
-<div class="send-request">
-  <button
-    class="me-1"
-    nz-button
-    nzType="primary"
-    [disabled]="setOfCheckedId.size !== 10"
-    (click)="generateMatchmaking('STARS')"
-  >
-    Sorteio por estrelas
-  </button>
-  <button
-    nz-button
-    nzType="primary"
-    [disabled]="setOfCheckedId.size !== 10"
-    (click)="generateMatchmaking('TIER')"
-  >
-  Sorteio por elo
-  </button>
-  <span>{{ setOfCheckedId.size }} jogadores selecionados</span>
-</div>
-
-<h2>Jogadores</h2>
-<nz-table [nzData]="players">
-  <thead>
-    <tr>
-      <th
-            [nzChecked]="checked"
-            [nzIndeterminate]="indeterminate"
-            nzLabel="Select all"
-            (nzCheckedChange)="onAllChecked($event)"
-          ></th>
-      <th>Nome</th>
-      <th>NickName</th>
-      <th>Main Lane</th>
-      <th>Secondary Lane</th>
-      <th>Elo</th>
-      <th>Estrelas</th>
-    </tr>
-  </thead>
-  <tbody>
-    @for(player of players; track player.id){
-      <tr>
-        <td
-          [nzChecked]="setOfCheckedId.has(player.id)"
-          [nzLabel]="player.name"
-          (nzCheckedChange)="onItemChecked(player.id, $event)"
-        ></td>
-        <td>{{ player.name }}</td>
-        <td>{{ player.riotName }}#{{ player.riotTag }}</td>
-        <td>{{ player.mainLane }}</td>
-        <td>{{ player.secondaryLane }}</td>
-        <td>{{ player.tier }} - {{ player.rank }}</td>
-        <td>
-          <app-star-rating [(rating)]="player.stars"></app-star-rating>
-        </td>
-      </tr>
-    }@empty {}
-  </tbody>
-</nz-table>
+@if(!matchmakingResult){
+  <div>
+    <div class="send-request">
+      <button class="me-1" nz-button nzType="primary" [disabled]="setOfCheckedId.size !== 10"
+        (click)="generateMatchmaking('STARS')">
+        Sorteio por estrelas
+      </button>
+      <button nz-button nzType="primary" [disabled]="setOfCheckedId.size !== 10" (click)="generateMatchmaking('TIER')">
+        Sorteio por elo
+      </button>
+      <span>{{ setOfCheckedId.size }} jogadores selecionados</span>
+    </div>
+    
+    <h2>Jogadores</h2>
+    <nz-table [nzData]="players">
+      <thead>
+        <tr>
+          <th [nzChecked]="checked" [nzIndeterminate]="indeterminate" nzLabel="Select all"
+            (nzCheckedChange)="onAllChecked($event)"></th>
+          <th>Nome</th>
+          <th>NickName</th>
+          <th>Main Lane</th>
+          <th>Secondary Lane</th>
+          <th>Elo</th>
+          <th>Estrelas</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(player of players; track player.id){
+        <tr>
+          <td [nzChecked]="setOfCheckedId.has(player.id)" [nzLabel]="player.name"
+            (nzCheckedChange)="onItemChecked(player.id, $event)"></td>
+          <td>{{ player.name }}</td>
+          <td>{{ player.riotName }}#{{ player.riotTag }}</td>
+          <td>{{ player.mainLane }}</td>
+          <td>{{ player.secondaryLane }}</td>
+          <td>{{ player.tier }}
+            @if(player.rank){
+            - {{player.rank}}
+            }
+          </td>
+          <td>
+            <app-star-rating [(rating)]="player.stars"></app-star-rating>
+          </td>
+        </tr>
+        }@empty {}
+      </tbody>
+    </nz-table>
+  </div>
+}
 
 @if(matchmakingResult){
-    <div >
-        <h2>Resultado</h2>
-        <div class="teams">
-        <div>
-            <h3>Time Azul</h3>
-            <ul>
-            @for(p of matchmakingResult.blueTeam.players; track $index){
-                <li>{{ p.name }}</li>
-            }
-            </ul>
-        </div>
-
-        <div>
-            <h3>Time Vermelho</h3>
-            <ul>
-            @for(p of matchmakingResult.redTeam.players; track $index){
-                <li>{{ p.name }}</li>
-            }
-            </ul>
-        </div>
-        </div>
+  <div class="matchmaking-result">
+    <h2 class="result-title">Resultado</h2>
+    <div class="teams-container">
+      <div class="team-box blue-team">
+        <h3>
+          <span class="team-color"></span>
+          Time Azul
+        </h3>
+        <ul>
+          <li *ngFor="let p of matchmakingResult.blueTeam.players">
+            <span class="player-name">{{ p.name }}</span>
+            <span class="player-lane">{{ p.mainLane }} / {{ p.secondaryLane }}</span>
+          </li>
+        </ul>
+        <p>Total Stars: {{ matchmakingResult.blueTeam.totalStars }}</p>
+        <p>Average Tier Weight: {{ matchmakingResult.blueTeam.averageTierWeight }}</p>
+      </div>
+  
+      <div class="team-box red-team">
+        <h3>
+          <span class="team-color"></span>
+          Time Vermelho
+        </h3>
+        <ul>
+          <li *ngFor="let p of matchmakingResult.redTeam.players">
+            <span class="player-name">{{ p.name }}</span>
+            <span class="player-lane">{{ p.mainLane }} / {{ p.secondaryLane }}</span>
+          </li>
+        </ul>
+        <p>Total Stars: {{ matchmakingResult.redTeam.totalStars }}</p>
+        <p>Average Tier Weight: {{ matchmakingResult.redTeam.averageTierWeight }}</p>
+      </div>
     </div>
+    <button class="mt-1" nz-button nzType="default"(click)="reset()">
+      Voltar
+    </button>
+  </div>
 }
