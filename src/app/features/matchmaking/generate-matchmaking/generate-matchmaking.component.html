@@ -20,6 +20,9 @@
     </div>
     
     <h2>Jogadores</h2>
+    <button class="mb-2" nz-button nzType="primary" (click)="openNewPlayerModal()">
+      Novo jogador
+    </button>
     <nz-table [nzData]="players">
       <thead>
         <tr>
@@ -49,6 +52,10 @@
           </td>
           <td>
             <app-star-rating [(rating)]="player.stars"></app-star-rating>
+          </td>
+          <td>
+            <button class="me-1" nz-button nzType="primary" (click)="openEditPlayerModal(player)">Editar</button>
+            <button nz-button nzType="primary" nzDanger >Remover</button>
           </td>
         </tr>
         }@empty {}

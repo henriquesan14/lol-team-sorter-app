@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -10,20 +10,24 @@ import { CommonModule } from '@angular/common';
 import { PlayerService } from '../../../shared/services/player.service';
 import { CreatePlayer } from '../../../core/models/create-player.interface';
 import { ToastrService } from 'ngx-toastr';
+import { Player } from '../../../core/models/player.interface';
+import { NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-create-player',
+  selector: 'app-form-player',
   standalone: true,
   imports: [ReactiveFormsModule, NzFormModule, NzInputModule, NzSelectModule, NzButtonComponent, AppStarRatingComponent, CommonModule],
-  templateUrl: './create-player.component.html',
-  styleUrl: './create-player.component.css'
+  templateUrl: './form-player.component.html',
+  styleUrl: './form-player.component.css'
 })
-export class CreatePlayerComponent implements OnInit, OnDestroy {
+export class FormPlayerComponent implements OnInit, OnDestroy {
   private fb = inject(NonNullableFormBuilder);
   private playerService = inject(PlayerService);
   private toastr = inject(ToastrService);
   private destroy$ = new Subject<void>();
   isSubmitting = false;
+
+  constructor(@Inject(NZ_MODAL_DATA) public data: { playerToEdit: Player }) {}
 
   playerForm: FormGroup<{
     name: FormControl<string>;
@@ -41,8 +45,18 @@ export class CreatePlayerComponent implements OnInit, OnDestroy {
     stars: this.fb.control(3, Validators.required),
   });
 
-  ngOnInit(): void {}
-
+  ngOnInit(): void {
+    if (this.data?.playerToEdit) {
+      this.playerForm.patchValue({
+        name: this.data.playerToEdit.name,
+        riotName: this.data.playerToEdit.riotName,
+        riotTag: `#${this.data.playerToEdit.riotTag}`,
+        mainLane: this.data.playerToEdit.mainLane,
+        secondaryLane: this.data.playerToEdit.secondaryLane,
+        stars: this.data.playerToEdit.stars,
+      });
+    }
+  }
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();

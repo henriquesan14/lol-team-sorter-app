@@ -1,4 +1,4 @@
-<h1>Cadastro jogador</h1>
+<!-- <h1>Cadastro jogador</h1> -->
 <div>
     <form nz-form [formGroup]="playerForm" (ngSubmit)="submitForm()">
         <nz-form-item>
@@ -69,7 +69,9 @@
         </nz-form-item>
         <nz-form-item nz-row class="register-area">
             <nz-form-control [nzSpan]="14" [nzOffset]="6">
-                <button nz-button nzType="primary" [nzLoading]="isSubmitting">Cadastrar</button>
+                <button nz-button nzType="primary" [nzLoading]="isSubmitting">
+                    {{ data && data.playerToEdit ? 'Editar' : 'Cadastrar' }}
+                </button>
             </nz-form-control>
         </nz-form-item>
     </form>

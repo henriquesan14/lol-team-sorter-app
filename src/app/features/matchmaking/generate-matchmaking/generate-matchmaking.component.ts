@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { PlayerService } from '../../../shared/services/player.service';
 import { Player } from '../../../core/models/player.interface';
 import { Matchmaking } from '../../../core/models/matchmaking.interface';
@@ -7,18 +7,21 @@ import { CommonModule } from '@angular/common';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzGridModule  } from 'ng-zorro-antd/grid';
+import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { AppStarRatingComponent } from '../../../shared/components/app-star-rating/app-star-rating.component';
+import { FormPlayerComponent } from '../../player/form-player/form-player.component';
 
 
 @Component({
   selector: 'app-generate-matchmaking',
   standalone: true,
-  imports: [CommonModule, NzButtonModule, NzTableModule, AppStarRatingComponent, NzGridModule],
+  imports: [CommonModule, NzButtonModule, NzTableModule, AppStarRatingComponent, NzGridModule, NzModalModule ],
   templateUrl: './generate-matchmaking.component.html',
   styleUrl: './generate-matchmaking.component.css',
 })
 export class GenerateMatchmakingComponent implements OnInit {
   
+  private modal = inject(NzModalService);
   constructor(private playerService: PlayerService, private matchmakingService: MatchmakingService){}
   matchmakingResult?: Matchmaking;
   
@@ -80,5 +83,26 @@ export class GenerateMatchmakingComponent implements OnInit {
 
   reset(){
     this.matchmakingResult = undefined;
+  }
+
+  openNewPlayerModal(): void {
+    this.modal.create({
+      nzTitle: 'Cadastrar jogador',
+      nzContent: FormPlayerComponent,
+      nzWidth: '800px',
+      nzFooter: null
+    });
+  }
+
+  openEditPlayerModal(player: Player): void {
+    this.modal.create({
+      nzTitle: 'Editar jogador',
+      nzContent: FormPlayerComponent,
+      nzWidth: '800px',
+      nzData:{
+        playerToEdit: player
+      },
+      nzFooter: null
+    });
   }
 }
