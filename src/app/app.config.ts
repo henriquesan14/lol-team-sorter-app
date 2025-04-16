@@ -2,7 +2,7 @@ import { ApplicationConfig, provideZoneChangeDetection, importProvidersFrom } fr
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { icons } from './icons-provider';
 import { provideNzIcons } from 'ng-zorro-antd/icon';
 import { pt_BR, provideNzI18n } from 'ng-zorro-antd/i18n';
@@ -11,6 +11,7 @@ import pt from '@angular/common/locales/pt';
 import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideToastr } from 'ngx-toastr';
+import { ErrorHandlerInterceptor } from './core/interceptors/error-handle.interceptor';
 
 registerLocaleData(pt);
 
@@ -18,7 +19,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([ErrorHandlerInterceptor])),
     provideNzIcons(icons),
     provideNzI18n(pt_BR),
     importProvidersFrom(FormsModule),
