@@ -144,4 +144,23 @@ export class GenerateMatchmakingComponent implements OnInit {
         })
     });
   }
+
+  showConfirmDeleteBatch(): void {
+    this.confirmModal = this.modal.confirm({
+      nzTitle: 'Exclusão',
+      nzContent: 'Tem certeza que quer remover os jogadores selecionados?',
+      nzOnOk: () =>
+       this.deletarPlayersBatch()
+    });
+  }
+
+  deletarPlayersBatch() {
+    const playerIds = this.players.filter(data => this.setOfCheckedId.has(data.id)).map(p => p.id);
+    this.playerService.deletePlayersBatch(playerIds).subscribe({
+      next: () => {
+        this.toastr.success('Jogadores removidos!', 'Sucesso');
+        this.getPlayers();
+      }
+    });
+  }
 }

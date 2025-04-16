@@ -39,7 +39,7 @@ export class FormPlayerComponent implements OnInit, OnDestroy {
   }> = this.fb.group({
     name: this.fb.control('', Validators.required),
     riotName: this.fb.control('', Validators.required),
-    riotTag: this.fb.control('#BR1', [Validators.required, Validators.pattern(/^#[A-Za-z0-9]+$/),]),
+    riotTag: this.fb.control('#BR1', [Validators.required, Validators.pattern(/^#[A-Za-zÀ-ÿ0-9]+$/)]),
     mainLane: this.fb.control('TOP', Validators.required),
     secondaryLane: this.fb.control('TOP', Validators.required),
     stars: this.fb.control(3, Validators.required),

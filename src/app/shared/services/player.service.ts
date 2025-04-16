@@ -29,6 +29,10 @@ export class PlayerService {
       return this.http.delete(`${this.API}/${id}`,);
     }
 
+    deletePlayersBatch(playerIds: string[]){
+      return this.http.post<Player>(`${this.API}/delete`, {playerIds});
+    }
+
     updateRankedTier(id: string){
       return this.http.patch(`${this.API}/${id}`, {id});
     }

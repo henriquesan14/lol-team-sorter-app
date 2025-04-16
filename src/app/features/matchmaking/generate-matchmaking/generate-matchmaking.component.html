@@ -20,9 +20,17 @@
     </div>
     
     <h2>Jogadores</h2>
-    <button class="mb-2" nz-button nzType="primary" (click)="openNewPlayerModal()">
+    <button class="mb-2 me-1" nz-button nzType="primary" (click)="openNewPlayerModal()">
       Novo jogador
     </button>
+    @if(setOfCheckedId.size > 0){
+      <button nz-tooltip nzTooltipTitle="Atualizar tier selecionados" nzTooltipPlacement="top"  class="me-1" nz-button nzType="default">
+        <span nz-icon nzType="sync"></span>
+      </button>
+      <button (click)="showConfirmDeleteBatch()" nz-tooltip nzTooltipTitle="Excluir selecionados" nzTooltipPlacement="top" nz-button nzType="primary" nzDanger>
+        <span nz-icon nzType="delete"></span>
+      </button>
+    }
     <nz-table [nzData]="players" [nzFrontPagination]="false">
       <thead>
         <tr>
