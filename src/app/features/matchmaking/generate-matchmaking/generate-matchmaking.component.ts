@@ -7,22 +7,26 @@ import { CommonModule } from '@angular/common';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzGridModule  } from 'ng-zorro-antd/grid';
-import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
+import { NzModalModule, NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { AppStarRatingComponent } from '../../../shared/components/app-star-rating/app-star-rating.component';
 import { FormPlayerComponent } from '../../player/form-player/form-player.component';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip'
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
   selector: 'app-generate-matchmaking',
   standalone: true,
-  imports: [CommonModule, NzButtonModule, NzTableModule, AppStarRatingComponent, NzGridModule, NzModalModule, NzIconModule ],
+  imports: [CommonModule, NzButtonModule, NzTableModule, AppStarRatingComponent, NzGridModule, NzModalModule, NzIconModule, NzToolTipModule ],
   templateUrl: './generate-matchmaking.component.html',
   styleUrl: './generate-matchmaking.component.css',
 })
 export class GenerateMatchmakingComponent implements OnInit {
   
+  confirmModal?: NzModalRef;
   private modal = inject(NzModalService);
+  private toastr = inject(ToastrService);
   constructor(private playerService: PlayerService, private matchmakingService: MatchmakingService){}
   matchmakingResult?: Matchmaking;
   
@@ -31,7 +35,6 @@ export class GenerateMatchmakingComponent implements OnInit {
   indeterminate = false;
   setOfCheckedId = new Set<string>();
 
-  rate= 5;
   ngOnInit(): void {
     this.getPlayers();
   }
@@ -87,16 +90,22 @@ export class GenerateMatchmakingComponent implements OnInit {
   }
 
   openNewPlayerModal(): void {
-    this.modal.create({
+    const modal = this.modal.create({
       nzTitle: 'Cadastrar jogador',
       nzContent: FormPlayerComponent,
       nzWidth: '800px',
-      nzFooter: null
+      nzFooter: null,
+    });
+
+    modal.afterClose.subscribe((result) => {
+      if (result) {
+        this.getPlayers(); // Atualiza a lista se o form mandou ok
+      }
     });
   }
 
   openEditPlayerModal(player: Player): void {
-    this.modal.create({
+    const modal = this.modal.create({
       nzTitle: 'Editar jogador',
       nzContent: FormPlayerComponent,
       nzWidth: '800px',
@@ -104,6 +113,26 @@ export class GenerateMatchmakingComponent implements OnInit {
         playerToEdit: player
       },
       nzFooter: null
+    });
+    
+    modal.afterClose.subscribe((result) => {
+      if (result) {
+        this.getPlayers(); // Atualiza a lista se o form mandou ok
+      }
+    });
+  }
+
+  showConfirm(id: string): void {
+    this.confirmModal = this.modal.confirm({
+      nzTitle: 'Exclusão',
+      nzContent: 'Tem certeza que quer remover este jogador?',
+      nzOnOk: () =>
+        this.playerService.deletePlayer(id).subscribe({
+          next: () => {
+            this.toastr.success('Jogador removido!', 'Sucesso');
+            this.getPlayers();
+          }
+        })
     });
   }
 }

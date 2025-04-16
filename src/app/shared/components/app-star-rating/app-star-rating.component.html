@@ -1,9 +1,10 @@
-<div class="stars">
+<div class="stars" [class.read-only]="readOnly">
     @for(star of [].constructor(maxStars); track $index){
         <span 
         class="star" 
         [class.filled]="$index < rating" 
-        (click)="setRating($index + 1)">
+        (click)="setRating($index + 1)"
+        [style.cursor]="readOnly ? 'default' : 'pointer'">
         ★
       </span>
     }

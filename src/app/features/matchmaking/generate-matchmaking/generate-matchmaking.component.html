@@ -28,7 +28,7 @@
         <tr>
           <th [nzChecked]="checked" [nzIndeterminate]="indeterminate" nzLabel="Select all"
             (nzCheckedChange)="onAllChecked($event)"></th>
-          <th>Nome</th>
+          <th>Name</th>
           <th>NickName</th>
           <th>Main Lane</th>
           <th>Secondary Lane</th>
@@ -52,13 +52,13 @@
             }
           </td>
           <td>
-            <app-star-rating [(rating)]="player.stars"></app-star-rating>
+            <app-star-rating [readOnly]="true" [(rating)]="player.stars"></app-star-rating>
           </td>
           <td>
-            <button class="me-1" nz-button nzType="primary" (click)="openEditPlayerModal(player)">
+            <button nz-tooltip nzTooltipTitle="Editar" nzTooltipPlacement="top"  class="me-1" nz-button nzType="primary" (click)="openEditPlayerModal(player)">
               <span nz-icon nzType="edit"></span>
             </button>
-            <button nz-button nzType="primary" nzDanger>
+            <button nz-tooltip nzTooltipTitle="Excluir" nzTooltipPlacement="top" nz-button nzType="primary" (click)="showConfirm(player.id)" nzDanger>
               <span nz-icon nzType="delete"></span>
             </button>
           </td>

@@ -14,3 +14,7 @@
   .star.filled {
     color: gold;
   }
+
+  .read-only .star {
+    pointer-events: none;
+  }

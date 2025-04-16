@@ -20,4 +20,12 @@ export class PlayerService {
     getPlayers(): Observable<Player[]>{
       return this.http.get<Player[]>(`${this.API}/`);
     }
+
+    updatePlayer(player: CreatePlayer): Observable<Player>{
+      return this.http.put<Player>(`${this.API}/`, player);
+    }
+
+    deletePlayer(id: string): Observable<Player>{
+      return this.http.delete<Player>(`${this.API}/${id}`,);
+    }
 }

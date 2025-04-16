@@ -1,4 +1,4 @@
-import { Component, Inject, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, inject, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -11,7 +11,7 @@ import { PlayerService } from '../../../shared/services/player.service';
 import { CreatePlayer } from '../../../core/models/create-player.interface';
 import { ToastrService } from 'ngx-toastr';
 import { Player } from '../../../core/models/player.interface';
-import { NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
+import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-form-player',
@@ -27,7 +27,7 @@ export class FormPlayerComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   isSubmitting = false;
 
-  constructor(@Inject(NZ_MODAL_DATA) public data: { playerToEdit: Player }) {}
+  constructor(private modalRef: NzModalRef, @Inject(NZ_MODAL_DATA) public data: { playerToEdit: Player }) {}
 
   playerForm: FormGroup<{
     name: FormControl<string>;
@@ -39,7 +39,7 @@ export class FormPlayerComponent implements OnInit, OnDestroy {
   }> = this.fb.group({
     name: this.fb.control('', Validators.required),
     riotName: this.fb.control('', Validators.required),
-    riotTag: this.fb.control('', [Validators.required, Validators.pattern(/^#[A-Za-z0-9]+$/),]),
+    riotTag: this.fb.control('#BR1', [Validators.required, Validators.pattern(/^#[A-Za-z0-9]+$/),]),
     mainLane: this.fb.control('TOP', Validators.required),
     secondaryLane: this.fb.control('TOP', Validators.required),
     stars: this.fb.control(3, Validators.required),
@@ -78,14 +78,40 @@ export class FormPlayerComponent implements OnInit, OnDestroy {
       riotName: riotName!,
       riotTag: riotTag!.toUpperCase().replace('#', ''),
     } as CreatePlayer;
-  
+
+    if(this.data && this.data.playerToEdit){
+      this.updatePlayer(payload);
+    }else{
+      this.createPlayer(payload);
+    }
+  }
+
+  createPlayer(payload: CreatePlayer){
     this.playerService.createPlayer(payload).subscribe({
-      next: (res) => {
+      next: () => {
         this.toastr.success('Jogador cadastrado!', 'Sucesso');
         this.resetForm();
+        this.modalRef.close(true);
       },
       error: (err) => {
-        // erro
+        this.isSubmitting = false;
+      },
+      complete: () => {
+        this.isSubmitting = false;
+      }
+    });
+  }
+
+  updatePlayer(payload: CreatePlayer){
+    payload.id = this.data.playerToEdit.id;
+    this.playerService.updatePlayer(payload).subscribe({
+      next: () => {
+        this.toastr.success('Jogador atualizado!', 'Sucesso');
+        this.resetForm();
+        this.modalRef.close(true);
+      },
+      error: (err) => {
+        this.isSubmitting = false;
       },
       complete: () => {
         this.isSubmitting = false;
