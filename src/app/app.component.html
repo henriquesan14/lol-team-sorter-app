@@ -12,26 +12,27 @@
       </a>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li nz-submenu nzOpen nzTitle="Sorteio" nzIcon="setting">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/welcome">Novo</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a>Histórico</a>
-          </li>
-        </ul>
-      </li>
-      <li nz-submenu nzOpen nzTitle="Jogadores" nzIcon="user">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a>Listar</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a>Cadastrar</a>
-          </li>
-        </ul>
-      </li>
+      @for (item of menuItems; track item.title) {
+        <li nz-submenu nzOpen [nzTitle]="item.title" [nzIcon]="item.icon">
+          <ul>
+            @for (child of item.children; track child.label) {
+              <li nz-menu-item nzMatchRouter>
+                @if (child.link) {
+                  <a 
+                    [routerLink]="child.link"
+                    [routerLinkActiveOptions]="{ exact: true }"
+                    routerLinkActive="active"
+                  >
+                    {{ child.label }}
+                  </a>
+                } @else {
+                  <a>{{ child.label }}</a>
+                }
+              </li>
+            }
+          </ul>
+        </li>
+      }
     </ul>
   </nz-sider>
   <nz-layout>

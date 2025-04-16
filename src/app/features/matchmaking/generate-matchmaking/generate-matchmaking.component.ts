@@ -7,15 +7,15 @@ import { CommonModule } from '@angular/common';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzGridModule  } from 'ng-zorro-antd/grid';
-import { NzCardComponent  } from 'ng-zorro-antd/card';
 import { AppStarRatingComponent } from '../../../shared/components/app-star-rating/app-star-rating.component';
+
 
 @Component({
   selector: 'app-generate-matchmaking',
   standalone: true,
-  imports: [CommonModule, NzButtonModule, NzTableModule, AppStarRatingComponent, NzGridModule, NzCardComponent ],
+  imports: [CommonModule, NzButtonModule, NzTableModule, AppStarRatingComponent, NzGridModule],
   templateUrl: './generate-matchmaking.component.html',
-  styleUrl: './generate-matchmaking.component.css'
+  styleUrl: './generate-matchmaking.component.css',
 })
 export class GenerateMatchmakingComponent implements OnInit {
   

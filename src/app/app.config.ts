@@ -10,9 +10,17 @@ import { registerLocaleData } from '@angular/common';
 import pt from '@angular/common/locales/pt';
 import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideToastr } from 'ngx-toastr';
 
 registerLocaleData(pt);
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideHttpClient(), provideNzIcons(icons), provideNzI18n(pt_BR), importProvidersFrom(FormsModule), provideAnimationsAsync(), provideHttpClient()]
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+     provideRouter(routes), provideHttpClient(),
+      provideNzIcons(icons), provideNzI18n(pt_BR),
+       importProvidersFrom(FormsModule), provideAnimationsAsync(),
+        provideHttpClient(),
+        provideToastr(),
+      ]
 };

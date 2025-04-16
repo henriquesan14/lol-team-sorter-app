@@ -1,1 +1,76 @@
-<p>create-player works!</p>
+<h1>Cadastro jogador</h1>
+<div>
+    <form nz-form [formGroup]="playerForm" (ngSubmit)="submitForm()">
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>
+                <span>Player Name</span>
+            </nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor, insira o nome do jogador.">
+                <input nz-input id="name" formControlName="name" placeholder="Name" maxlength="30"/>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Nickname</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+                <div nz-input-group>
+                    <input formControlName="riotName" id="riotName" nz-input placeholder="RiotName"
+                        style="width: 70%" maxlength="30" />
+                    <input formControlName="riotTag" id="riotTag" nz-input placeholder="#BR1" maxlength="4"
+                        style="width: 30%; text-transform: uppercase"/>
+                </div>
+
+                @if (playerForm.get('riotName')?.invalid && (playerForm.get('riotName')?.dirty ||
+                playerForm.get('riotName')?.touched)) {
+                <div class="ant-form-explain ant-form-item-explain-error">Por favor, insira o nome do invocador.</div>
+                }
+
+                @if (playerForm.get('riotTag')?.invalid && (playerForm.get('riotTag')?.dirty ||
+                playerForm.get('riotTag')?.touched)) {
+                <div class="ant-form-explain ant-form-item-explain-error">A tag deve começar com <strong>#</strong> e conter apenas letras e
+                    números.</div>
+                }
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="mainLane" nzRequired>
+                <span>Main Lane</span>
+            </nz-form-label>
+            <nz-select formControlName="mainLane" class="selectLane" id="mainLane">
+                <nz-option nzLabel="TOP" nzValue="TOP"></nz-option>
+                <nz-option nzLabel="JG" nzValue="JG"></nz-option>
+                <nz-option nzLabel="MID" nzValue="MID"></nz-option>
+                <nz-option nzLabel="ADC" nzValue="ADC"></nz-option>
+                <nz-option nzLabel="SUP" nzValue="SUP"></nz-option>
+            </nz-select>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="secondaryLane" nzRequired>
+                <span>Secondary Lane</span>
+            </nz-form-label>
+            <nz-select formControlName="secondaryLane" class="selectLane" id="secondaryLane">
+                <nz-option nzLabel="TOP" nzValue="TOP"></nz-option>
+                <nz-option nzLabel="JG" nzValue="JG"></nz-option>
+                <nz-option nzLabel="MID" nzValue="MID"></nz-option>
+                <nz-option nzLabel="ADC" nzValue="ADC"></nz-option>
+                <nz-option nzLabel="SUP" nzValue="SUP"></nz-option>
+            </nz-select>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="stars" nzRequired>
+                Stars
+            </nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" id="stars">
+                <app-star-rating [rating]="+playerForm.get('stars')?.value! || 0"
+                    (ratingChange)="playerForm.get('stars')?.setValue(+($event))">
+                </app-star-rating>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item nz-row class="register-area">
+            <nz-form-control [nzSpan]="14" [nzOffset]="6">
+                <button nz-button nzType="primary" [nzLoading]="isSubmitting">Cadastrar</button>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+</div>
