@@ -7,8 +7,14 @@
         (click)="generateMatchmaking('STARS')">
         Sorteio por estrelas
       </button>
-      <button nz-button nzType="primary" [disabled]="setOfCheckedId.size !== 10" (click)="generateMatchmaking('TIER')">
+      <button class="me-1" nz-button nzType="primary" [disabled]="setOfCheckedId.size !== 10" (click)="generateMatchmaking('TIER')">
         Sorteio por elo
+      </button>
+      <button class="me-1" nz-button nzType="primary" [disabled]="setOfCheckedId.size !== 10" (click)="generateMatchmaking('LANE')">
+        Sorteio por lane
+      </button>
+      <button nz-button nzType="primary" [disabled]="setOfCheckedId.size !== 10" (click)="generateMatchmaking('RANDOM')">
+        Sorteio aleatório
       </button>
       <span>{{ setOfCheckedId.size }} jogadores selecionados</span>
     </div>
@@ -53,7 +59,7 @@
 
 @if(matchmakingResult){
   <div class="matchmaking-result">
-    <h2 class="result-title">Resultado</h2>
+    <h2 class="result-title">Resultado Mode: {{matchmakingResult.mode}}</h2>
     <div class="teams-container">
       <div class="team-box blue-team">
         <h3>
