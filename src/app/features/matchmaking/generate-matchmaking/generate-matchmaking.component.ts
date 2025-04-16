@@ -89,6 +89,15 @@ export class GenerateMatchmakingComponent implements OnInit {
     this.matchmakingResult = undefined;
   }
 
+  updateRankedTier(id: string){
+    this.playerService.updateRankedTier(id).subscribe({
+      next: () => {
+        this.toastr.success('Rank do jogador atualizado!', 'Sucesso');
+        this.getPlayers();
+      }
+    })
+  }
+
   openNewPlayerModal(): void {
     const modal = this.modal.create({
       nzTitle: 'Cadastrar jogador',

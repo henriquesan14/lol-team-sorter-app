@@ -55,6 +55,9 @@
             <app-star-rating [readOnly]="true" [(rating)]="player.stars"></app-star-rating>
           </td>
           <td>
+            <button nz-tooltip nzTooltipTitle="Atualizar tier" nzTooltipPlacement="top"  class="me-1" nz-button nzType="default" (click)="updateRankedTier(player.id)">
+              <span nz-icon nzType="sync"></span>
+            </button>
             <button nz-tooltip nzTooltipTitle="Editar" nzTooltipPlacement="top"  class="me-1" nz-button nzType="primary" (click)="openEditPlayerModal(player)">
               <span nz-icon nzType="edit"></span>
             </button>

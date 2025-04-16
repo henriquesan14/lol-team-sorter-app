@@ -21,11 +21,15 @@ export class PlayerService {
       return this.http.get<Player[]>(`${this.API}/`);
     }
 
-    updatePlayer(player: CreatePlayer): Observable<Player>{
-      return this.http.put<Player>(`${this.API}/`, player);
+    updatePlayer(player: CreatePlayer){
+      return this.http.put(`${this.API}/`, player);
     }
 
-    deletePlayer(id: string): Observable<Player>{
-      return this.http.delete<Player>(`${this.API}/${id}`,);
+    deletePlayer(id: string){
+      return this.http.delete(`${this.API}/${id}`,);
+    }
+
+    updateRankedTier(id: string){
+      return this.http.patch(`${this.API}/${id}`, {id});
     }
 }
