@@ -10,12 +10,13 @@ import { NzGridModule  } from 'ng-zorro-antd/grid';
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { AppStarRatingComponent } from '../../../shared/components/app-star-rating/app-star-rating.component';
 import { FormPlayerComponent } from '../../player/form-player/form-player.component';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 
 @Component({
   selector: 'app-generate-matchmaking',
   standalone: true,
-  imports: [CommonModule, NzButtonModule, NzTableModule, AppStarRatingComponent, NzGridModule, NzModalModule ],
+  imports: [CommonModule, NzButtonModule, NzTableModule, AppStarRatingComponent, NzGridModule, NzModalModule, NzIconModule ],
   templateUrl: './generate-matchmaking.component.html',
   styleUrl: './generate-matchmaking.component.css',
 })

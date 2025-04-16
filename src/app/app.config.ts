@@ -17,10 +17,13 @@ registerLocaleData(pt);
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-     provideRouter(routes), provideHttpClient(),
-      provideNzIcons(icons), provideNzI18n(pt_BR),
-       importProvidersFrom(FormsModule), provideAnimationsAsync(),
-        provideHttpClient(),
-        provideToastr(),
-      ]
+    provideRouter(routes),
+    provideHttpClient(),
+    provideNzIcons(icons),
+    provideNzI18n(pt_BR),
+    importProvidersFrom(FormsModule),
+    provideAnimationsAsync(),
+    provideHttpClient(),
+    provideToastr(),
+  ]
 };
