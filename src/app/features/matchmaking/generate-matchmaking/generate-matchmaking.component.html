@@ -23,7 +23,7 @@
     <button class="mb-2" nz-button nzType="primary" (click)="openNewPlayerModal()">
       Novo jogador
     </button>
-    <nz-table [nzData]="players">
+    <nz-table [nzData]="players" [nzFrontPagination]="false">
       <thead>
         <tr>
           <th [nzChecked]="checked" [nzIndeterminate]="indeterminate" nzLabel="Select all"
