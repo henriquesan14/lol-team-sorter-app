@@ -36,4 +36,8 @@ export class PlayerService {
     updateRankedTier(id: string){
       return this.http.patch(`${this.API}/${id}`, {id});
     }
+
+    updateRankedTiersBtach(playerIds: string[]){
+      return this.http.post(`${this.API}/update-ranked-tiers`, {playerIds});
+    }
 }

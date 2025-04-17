@@ -34,6 +34,7 @@ export class GenerateMatchmakingComponent implements OnInit {
   checked = false;
   indeterminate = false;
   setOfCheckedId = new Set<string>();
+  isLoadingUpdateTiers = false;
 
   ngOnInit(): void {
     this.getPlayers();
@@ -160,6 +161,23 @@ export class GenerateMatchmakingComponent implements OnInit {
       next: () => {
         this.toastr.success('Jogadores removidos!', 'Sucesso');
         this.getPlayers();
+      }
+    });
+  }
+
+  updateRankedTiersBatch(){
+    const playerIds = this.players.filter(data => this.setOfCheckedId.has(data.id)).map(p => p.id);
+    this.isLoadingUpdateTiers = true;
+    this.playerService.updateRankedTiersBtach(playerIds).subscribe({
+      next: () => {
+        this.toastr.success('Jogadores atualizados!', 'Sucesso');
+        this.getPlayers();
+      },
+      error: () => {
+        this.isLoadingUpdateTiers = false;
+      },
+      complete: () => {
+        this.isLoadingUpdateTiers = false;
       }
     });
   }

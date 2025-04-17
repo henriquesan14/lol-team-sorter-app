@@ -24,7 +24,10 @@
       Novo jogador
     </button>
     @if(setOfCheckedId.size > 0){
-      <button nz-tooltip nzTooltipTitle="Atualizar tier selecionados" nzTooltipPlacement="top"  class="me-1" nz-button nzType="default">
+      <button (click)="updateRankedTiersBatch()"
+      [nzLoading]="isLoadingUpdateTiers"
+      [disabled]="isLoadingUpdateTiers"
+      nz-tooltip nzTooltipTitle="Atualizar tier selecionados" nzTooltipPlacement="top"  class="me-1" nz-button nzType="default">
         <span nz-icon nzType="sync"></span>
       </button>
       <button (click)="showConfirmDeleteBatch()" nz-tooltip nzTooltipTitle="Excluir selecionados" nzTooltipPlacement="top" nz-button nzType="primary" nzDanger>
