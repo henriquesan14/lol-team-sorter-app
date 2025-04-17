@@ -43,8 +43,8 @@
           <th>NickName</th>
           <th>Main Lane</th>
           <th>Secondary Lane</th>
-          <th>Elo</th>
-          <th>Estrelas</th>
+          <th>Tier</th>
+          <th>Stars</th>
           <th></th>
         </tr>
       </thead>
@@ -84,41 +84,8 @@
 }
 
 @if(matchmakingResult){
-  <div class="matchmaking-result">
-    <h2 class="result-title">Resultado Mode: {{matchmakingResult.mode}}</h2>
-    <div class="teams-container">
-      <div class="team-box blue-team">
-        <h3>
-          <span class="team-color"></span>
-          Time Azul
-        </h3>
-        <ul>
-          <li *ngFor="let p of matchmakingResult.blueTeam.players">
-            <span class="player-name">{{ p.name }}</span>
-            <span class="player-lane">{{ p.mainLane }} / {{ p.secondaryLane }}</span>
-          </li>
-        </ul>
-        <p>Total Stars: {{ matchmakingResult.blueTeam.totalStars }}</p>
-        <p>Average Tier Weight: {{ matchmakingResult.blueTeam.averageTierWeight }}</p>
-      </div>
-  
-      <div class="team-box red-team">
-        <h3>
-          <span class="team-color"></span>
-          Time Vermelho
-        </h3>
-        <ul>
-          <li *ngFor="let p of matchmakingResult.redTeam.players">
-            <span class="player-name">{{ p.name }}</span>
-            <span class="player-lane">{{ p.mainLane }} / {{ p.secondaryLane }}</span>
-          </li>
-        </ul>
-        <p>Total Stars: {{ matchmakingResult.redTeam.totalStars }}</p>
-        <p>Average Tier Weight: {{ matchmakingResult.redTeam.averageTierWeight }}</p>
-      </div>
-    </div>
-    <button class="mt-1" nz-button nzType="default"(click)="reset()">
-      Voltar
-    </button>
-  </div>
+  <app-matchmaking-result [matchmakingResult]="matchmakingResult"></app-matchmaking-result>
+  <button class="mt-1" nz-button nzType="default" (click)="reset()">
+    Voltar
+  </button>
 }

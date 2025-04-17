@@ -20,17 +20,17 @@ export class AppComponent {
       title: 'Sorteio',
       icon: 'setting',
       children: [
-        { label: 'Novo', link: '/matchmaking' },
-        { label: 'Histórico', link: null }
+        { label: 'Novo', link: 'matchmaking' },
+        { label: 'Histórico', link: 'matchmaking/list' }
       ]
     },
-    {
-      title: 'Jogadores',
-      icon: 'user',
-      children: [
-        { label: 'Listar', link: '/players/list' },
-        { label: 'Cadastrar', link: '/players/create' }
-      ]
-    }
+    // {
+    //   title: 'Jogadores',
+    //   icon: 'user',
+    //   children: [
+    //     { label: 'Listar', link: '/players/list' },
+    //     { label: 'Cadastrar', link: '/players/create' }
+    //   ]
+    // }
   ];
 }

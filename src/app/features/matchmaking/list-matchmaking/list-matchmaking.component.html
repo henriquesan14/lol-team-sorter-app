@@ -1,0 +1,32 @@
+<h1>Histórico de Sorteios</h1>
+<div>
+    <nz-table [nzData]="matchmakings" [nzFrontPagination]="false">
+        <thead>
+          <tr>
+            <th [nzChecked]="checked" [nzIndeterminate]="indeterminate" nzLabel="Select all"
+              (nzCheckedChange)="onAllChecked($event)"></th>
+            <th>Mode</th>
+            <th>Created Date</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(match of matchmakings; track $index){
+            <tr>
+                <td [nzChecked]="setOfCheckedId.has(match.id)" [nzLabel]="match.mode"
+                  (nzCheckedChange)="onItemChecked(match.id, $event)"></td>
+                <td>{{ match.mode }}</td>
+                <td>{{ match.createdAt | date: 'dd/MM/yyyy HH:mm'}}</td>
+                <td>
+                  <button (click)="openShowMatchmaking(match)" nz-tooltip nzTooltipTitle="Visualizar" nzTooltipPlacement="top"  class="me-1" nz-button nzType="primary" >
+                    <span nz-icon nzType="eye"></span>
+                  </button>
+                  <button nz-tooltip nzTooltipTitle="Excluir" nzTooltipPlacement="top" nz-button nzType="primary" nzDanger>
+                    <span nz-icon nzType="delete"></span>
+                  </button>
+                </td>
+              </tr>
+          }@empty {}
+        </tbody>
+      </nz-table>
+</div>

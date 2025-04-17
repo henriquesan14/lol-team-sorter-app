@@ -1,0 +1,38 @@
+<div class="matchmaking-result">
+    <h2 class="result-title">Mode: {{matchmakingResult.mode}}</h2>
+    <div class="teams-container">
+        <div class="team-box blue-team">
+            <h3>
+                <span class="team-color"></span>
+                Time Azul
+            </h3>
+            <ul>
+                @for(p of matchmakingResult.blueTeam.players; track $index){
+                <li>
+                    <span class="player-name">{{ p.name }}</span>
+                    <span class="player-lane">{{ p.mainLane }} / {{ p.secondaryLane }}</span>
+                </li>
+                }
+            </ul>
+            <p>Total Stars: {{ matchmakingResult.blueTeam.totalStars }}</p>
+            <p>Average Tier Weight: {{ matchmakingResult.blueTeam.averageTierWeight }}</p>
+        </div>
+
+        <div class="team-box red-team">
+            <h3>
+                <span class="team-color"></span>
+                Time Vermelho
+            </h3>
+            <ul>
+                @for(p of matchmakingResult.redTeam.players; track $index){
+                <li>
+                    <span class="player-name">{{ p.name }}</span>
+                    <span class="player-lane">{{ p.mainLane }} / {{ p.secondaryLane }}</span>
+                </li>
+                }
+            </ul>
+            <p>Total Stars: {{ matchmakingResult.redTeam.totalStars }}</p>
+            <p>Average Tier Weight: {{ matchmakingResult.redTeam.averageTierWeight }}</p>
+        </div>
+    </div>
+</div>

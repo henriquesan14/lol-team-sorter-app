@@ -20,8 +20,8 @@
                 @if (child.link) {
                   <a 
                     [routerLink]="child.link"
-                    [routerLinkActiveOptions]="{ exact: true }"
                     routerLinkActive="active"
+                    [routerLinkActiveOptions]="{ exact: true }"
                   >
                     {{ child.label }}
                   </a>

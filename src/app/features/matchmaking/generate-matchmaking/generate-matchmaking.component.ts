@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { PlayerService } from '../../../shared/services/player.service';
 import { Player } from '../../../core/models/player.interface';
 import { Matchmaking } from '../../../core/models/matchmaking.interface';
@@ -13,17 +13,19 @@ import { FormPlayerComponent } from '../../player/form-player/form-player.compon
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip'
 import { ToastrService } from 'ngx-toastr';
+import { Subject, takeUntil } from 'rxjs';
+import { MatchmakingResultComponent } from '../matchmaking-result/matchmaking-result.component';
 
 
 @Component({
   selector: 'app-generate-matchmaking',
   standalone: true,
-  imports: [CommonModule, NzButtonModule, NzTableModule, AppStarRatingComponent, NzGridModule, NzModalModule, NzIconModule, NzToolTipModule ],
+  imports: [CommonModule, NzButtonModule, NzTableModule, AppStarRatingComponent, NzGridModule, NzModalModule, NzIconModule, NzToolTipModule, MatchmakingResultComponent ],
   templateUrl: './generate-matchmaking.component.html',
   styleUrl: './generate-matchmaking.component.css',
 })
-export class GenerateMatchmakingComponent implements OnInit {
-  
+export class GenerateMatchmakingComponent implements OnInit, OnDestroy {
+  private destroy$ = new Subject<void>();
   confirmModal?: NzModalRef;
   private modal = inject(NzModalService);
   private toastr = inject(ToastrService);
@@ -40,12 +42,19 @@ export class GenerateMatchmakingComponent implements OnInit {
     this.getPlayers();
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   getPlayers(){
-    this.playerService.getPlayers().subscribe({
-      next: (res) => {
-        this.players = res;
-      }
-    })
+    this.playerService.getPlayers()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (res) => {
+          this.players = res;
+        }
+      })
   }
 
   generateMatchmaking(mode: string){
