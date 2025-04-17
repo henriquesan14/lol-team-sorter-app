@@ -3,6 +3,6 @@ import { GenerateMatchmakingComponent } from "./generate-matchmaking/generate-ma
 import { ListMatchmakingComponent } from "./list-matchmaking/list-matchmaking.component";
 
 export const MATCHMAKING_ROUTES: Route[] = [
-  {path: '', component: GenerateMatchmakingComponent},
+  {path: 'generate', component: GenerateMatchmakingComponent},
   {path: 'list', component: ListMatchmakingComponent},
 ];

@@ -30,7 +30,7 @@ export class PlayerService {
     }
 
     deletePlayersBatch(playerIds: string[]){
-      return this.http.post<Player>(`${this.API}/delete`, {playerIds});
+      return this.http.post(`${this.API}/delete`, {playerIds});
     }
 
     updateRankedTier(id: string){

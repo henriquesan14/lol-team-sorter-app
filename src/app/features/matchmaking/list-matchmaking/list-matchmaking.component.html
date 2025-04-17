@@ -1,17 +1,57 @@
 <h1>Histórico de Sorteios</h1>
+<form [formGroup]="filterForm" class="mb-1" (ngSubmit)="onFilter()">
+  <div class="flex items-center gap-4 flex-wrap">
+
+    <nz-select
+      class="me-1"
+      formControlName="mode"
+      style="width: 200px"
+      nzPlaceHolder="Modo de sorteio">
+      @for(mode of matchmakingModes; track $index){
+        <nz-option [nzValue]="mode.value" [nzLabel]="mode.label"></nz-option>
+      }
+    </nz-select>
+
+    <nz-range-picker
+      class="me-1"
+      formControlName="dateRange"
+      nzFormat="dd/MM/yyyy">
+    </nz-range-picker>
+
+    <button nz-button nzType="primary" [disabled]="filterForm.invalid">
+      <span nz-icon nzType="search"></span>
+      Buscar</button>
+  </div>
+</form>
+@if(setOfCheckedId.size > 0){
+  <button (click)="showConfirmDeleteBatch()" class="mb-1" nz-tooltip nzTooltipTitle="Excluir selecionados" nzTooltipPlacement="top" nz-button nzType="primary" nzDanger>
+    <span nz-icon nzType="delete"></span>
+  </button>
+}
 <div>
-    <nz-table [nzData]="matchmakings" [nzFrontPagination]="false">
+    <nz-table
+    [nzScroll]="{ y: '600px' }"
+    [nzData]="paginatedMatchmaking.data" 
+    [nzTotal]="paginatedMatchmaking.count"
+    [nzPageSize]="paginatedMatchmaking.pageSize"
+    [nzPageIndex]="paginatedMatchmaking.pageNumber"
+    [nzLoading]="isLoading"
+    (nzPageIndexChange)="onPageChange($event)"
+    [nzShowSizeChanger]="true"
+    (nzPageIndexChange)="onPageChange($event)"
+    (nzPageSizeChange)="onPageSizeChange($event)"
+    [nzFrontPagination]="false">
         <thead>
           <tr>
-            <th [nzChecked]="checked" [nzIndeterminate]="indeterminate" nzLabel="Select all"
+            <th [nzWidth]="'50px'" [nzChecked]="checked" [nzIndeterminate]="indeterminate" nzLabel="Select all"
               (nzCheckedChange)="onAllChecked($event)"></th>
-            <th>Mode</th>
-            <th>Created Date</th>
-            <th></th>
+            <th [nzWidth]="'120px'">Mode</th>
+            <th [nzWidth]="'120px'">Created Date</th>
+            <th [nzWidth]="'120px'">Ações</th>
           </tr>
         </thead>
         <tbody>
-          @for(match of matchmakings; track $index){
+          @for(match of paginatedMatchmaking.data; track $index){
             <tr>
                 <td [nzChecked]="setOfCheckedId.has(match.id)" [nzLabel]="match.mode"
                   (nzCheckedChange)="onItemChecked(match.id, $event)"></td>
@@ -21,7 +61,7 @@
                   <button (click)="openShowMatchmaking(match)" nz-tooltip nzTooltipTitle="Visualizar" nzTooltipPlacement="top"  class="me-1" nz-button nzType="primary" >
                     <span nz-icon nzType="eye"></span>
                   </button>
-                  <button nz-tooltip nzTooltipTitle="Excluir" nzTooltipPlacement="top" nz-button nzType="primary" nzDanger>
+                  <button (click)="showConfirmDelete(match.id)" nz-tooltip nzTooltipTitle="Excluir" nzTooltipPlacement="top" nz-button nzType="primary" nzDanger>
                     <span nz-icon nzType="delete"></span>
                   </button>
                 </td>

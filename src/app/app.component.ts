@@ -20,7 +20,7 @@ export class AppComponent {
       title: 'Sorteio',
       icon: 'setting',
       children: [
-        { label: 'Novo', link: 'matchmaking' },
+        { label: 'Novo', link: 'matchmaking/generate' },
         { label: 'Histórico', link: 'matchmaking/list' }
       ]
     },
