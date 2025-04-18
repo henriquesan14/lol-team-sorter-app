@@ -140,6 +140,7 @@ export class ListMatchmakingComponent implements OnInit, OnDestroy {
         endDate: dateRange? (dateRange as Date[])[1].toISOString() : null
       }
       this.getMatchmakings(params);
+      this.checked = false;
     }
 
     onPageSizeChange(event: number){
@@ -209,6 +210,7 @@ export class ListMatchmakingComponent implements OnInit, OnDestroy {
         next: () => {
           this.toastr.success('Sorteios removidos!', 'Sucesso');
           this.getMatchmakings(null);
+          this.checked = false;
         }
       });
     }
