@@ -9,10 +9,10 @@
         <thead>
             <tr>
                 <th nzWidth="30%">Campeão</th>
-                <th nzWidth="20%">Partidas</th>
-                <th nzWidth="20%">Vitórias</th>
-                <th nzWidth="20%">Derrotas</th>
-                <th nzWidth="10%">Win Rate</th>
+                <th nzWidth="10%">Partidas</th>
+                <th nzWidth="15%">Vitórias/Derrotas</th>
+                <th nzWidth="20%">Win Rate</th>
+                <th nzWidth="30%">AMA</th>
             </tr>
         </thead>
         <tbody>
@@ -23,9 +23,13 @@
                         {{ stat.name }}
                     </td>
                     <td>{{ stat.matches }}</td>
-                    <td>{{ stat.wins }}</td>
-                    <td>{{ stat.losses }}</td>
+                    <td>{{ stat.wins }}V/{{stat.losses}}D</td>
                     <td>{{ stat.winRate }}%</td>
+                    <td>
+                        <span class="text-green">{{ stat.avgKills.toFixed(1) }}</span> /
+                        <span class="text-red">{{ stat.avgDeaths.toFixed(1) }}</span> /
+                        <span class="text-yellow">{{ stat.avgAssists.toFixed(1) }}</span>
+                    </td>
                 </tr>
             }
         </tbody>

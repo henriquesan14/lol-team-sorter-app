@@ -20,3 +20,15 @@ table th, table td {
     justify-content: center;
     padding: 24px 0;
   }
+
+  .text-green {
+    color: #52c41a; /* verde NgZorro */
+  }
+  
+  .text-red {
+    color: #ff4d4f; /* vermelho NgZorro */
+  }
+  
+  .text-yellow {
+    color: #faad14; /* amarelo NgZorro */
+  }
