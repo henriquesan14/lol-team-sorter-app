@@ -4,6 +4,8 @@ import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
 import { Player } from '../../core/models/player.interface';
 import { CreatePlayer } from '../../core/models/create-player.interface';
+import { ChampionMastery } from '../../core/models/champion-mastery.interface';
+import { ChampionRankedStat } from '../../core/models/champion-ranked-stat.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -39,5 +41,13 @@ export class PlayerService {
 
     updateRankedTiersBtach(playerIds: string[]){
       return this.http.post(`${this.API}/update-ranked-tiers`, {playerIds});
+    }
+
+    getChampionMastery(riotId: string): Observable<ChampionMastery[]> {
+      return this.http.get<ChampionMastery[]>(`${this.API}/${riotId}/championMasteries`);
+    }
+
+    getChampionRankedStats(riotId: string): Observable<ChampionRankedStat[]> {
+      return this.http.get<ChampionRankedStat[]>(`${this.API}/${riotId}/champion-ranked-stats`);
     }
 }

@@ -1,0 +1,23 @@
+/* src/app/components/champion-mastery/champion-mastery.component.css */
+.mastery-container {
+  padding: 20px;
+}
+
+.nz-table {
+  margin-top: 20px;
+}
+
+table th, table td {
+  padding: 12px 16px;
+  text-align: center;
+}
+
+.nz-avatar {
+  border-radius: 5px;
+}
+
+.full-width {
+  display: flex;
+  justify-content: center;
+  padding: 24px 0;
+}

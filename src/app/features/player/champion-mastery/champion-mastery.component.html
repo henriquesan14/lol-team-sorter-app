@@ -1,0 +1,34 @@
+<div class="mastery-container">
+  <h2>Maestrias de Campeões</h2>
+
+  <nz-spin [nzSpinning]="loading" [nzSize]="'large'" [nzTip]="'Carregando...'" class="full-width"></nz-spin>
+
+  @if(!loading && championMasteries.length > 0){
+  <nz-table #basicTable [nzData]="championMasteries" [nzBordered]="true" [nzSize]="'middle'"
+    [nzFrontPagination]="false">
+    <thead>
+      <tr>
+        <th nzWidth="30%">Campeão</th>
+        <th nzWidth="20%">Nível</th>
+        <th nzWidth="30%">Pontos de Maestria</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(mastery of championMasteries; track $index){
+      <tr>
+        <td>
+          <nz-avatar [nzSrc]="mastery.imageUrl" [nzShape]="'square'" [nzSize]="'large'" class="me-1"></nz-avatar>
+          {{ mastery.name }}
+        </td>
+        <td>{{ mastery.championLevel }}</td>
+        <td>{{ formatPoints(mastery.championPoints) }}</td>
+      </tr>
+      }
+    </tbody>
+  </nz-table>
+  }
+
+  @if(!loading && championMasteries.length === 0){
+  <p>Não há maestrias para exibir.</p>
+  }
+</div>

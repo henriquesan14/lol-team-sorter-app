@@ -15,6 +15,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip'
 import { ToastrService } from 'ngx-toastr';
 import { Subject, takeUntil } from 'rxjs';
 import { MatchmakingResultComponent } from '../matchmaking-result/matchmaking-result.component';
+import { PlayerDetailsComponent } from '../../player/player-details/player-details.component';
 
 
 @Component({
@@ -188,6 +189,18 @@ export class GenerateMatchmakingComponent implements OnInit, OnDestroy {
       complete: () => {
         this.isLoadingUpdateTiers = false;
       }
+    });
+  }
+
+  visualizar(player: Player){
+    const modal = this.modal.create({
+      nzTitle: `Estatísticas do jogador: ${player.riotName}#${player.riotTag}`,
+      nzContent: PlayerDetailsComponent,
+      nzWidth: '800px',
+      nzData:{
+        riotId : player.riotId
+      },
+      nzFooter: null
     });
   }
 }

@@ -1,0 +1,39 @@
+<div class="champion-stats-container">
+    <h2>Estatísticas das últimas partidas ranqueadas</h2>
+
+    <nz-spin [nzSpinning]="loading" [nzSize]="'large'" [nzTip]="'Carregando...'" class="full-width"></nz-spin>
+
+    @if(!loading && championRankedStats.length > 0){
+    <nz-table #basicTable [nzData]="championRankedStats" [nzBordered]="true" [nzSize]="'middle'"
+        [nzFrontPagination]="false">
+        <thead>
+            <tr>
+                <th nzWidth="30%">Campeão</th>
+                <th nzWidth="20%">Partidas</th>
+                <th nzWidth="20%">Vitórias</th>
+                <th nzWidth="20%">Derrotas</th>
+                <th nzWidth="10%">Win Rate</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(stat of championRankedStats; track $index){
+                <tr>
+                    <td>
+                        <nz-avatar [nzSrc]="stat.imageUrl" [nzShape]="'square'" [nzSize]="'large'" class="me-1"></nz-avatar>
+                        {{ stat.name }}
+                    </td>
+                    <td>{{ stat.matches }}</td>
+                    <td>{{ stat.wins }}</td>
+                    <td>{{ stat.losses }}</td>
+                    <td>{{ stat.winRate }}%</td>
+                </tr>
+            }
+        </tbody>
+    </nz-table>
+    }
+
+    @if(!loading && championRankedStats.length === 0){
+    <p>Não há dados para exibir.</p>
+    }
+
+</div>
