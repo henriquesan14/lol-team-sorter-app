@@ -8,12 +8,18 @@
             </h3>
             <ul>
                 @for(p of matchmakingResult.blueTeam.players; track $index){
-                <li>
+                <li class="player-item">
+                  <div class="player-info">
                     <span class="player-name">{{ p.name }}</span>
-                    <span class="player-lane">{{ p.mainLane }} / {{ p.secondaryLane }}</span>
+                    <button nzSize="small" nz-tooltip nzTooltipTitle="Visualizar" nzTooltipPlacement="top" nz-button nzType="primary"
+                             (click)="visualizar(p)">
+                      <span nz-icon nzType="eye"></span>
+                    </button>
+                  </div>
+                  <span class="player-lane">{{ p.mainLane }} / {{ p.secondaryLane }}</span>
                 </li>
                 }
-            </ul>
+              </ul>
             <p>Total Stars: {{ matchmakingResult.blueTeam.totalStars }}</p>
             <p>Average Tier Weight: {{ matchmakingResult.blueTeam.averageTierWeight }}</p>
         </div>
@@ -25,12 +31,18 @@
             </h3>
             <ul>
                 @for(p of matchmakingResult.redTeam.players; track $index){
-                <li>
+                <li class="player-item">
+                  <div class="player-info">
                     <span class="player-name">{{ p.name }}</span>
-                    <span class="player-lane">{{ p.mainLane }} / {{ p.secondaryLane }}</span>
+                    <button nzSize="small" nz-tooltip nzTooltipTitle="Visualizar" nzTooltipPlacement="top" nz-button nzType="primary" nzDanger
+                             (click)="visualizar(p)">
+                      <span nz-icon nzType="eye"></span>
+                    </button>
+                  </div>
+                  <span class="player-lane">{{ p.mainLane }} / {{ p.secondaryLane }}</span>
                 </li>
                 }
-            </ul>
+              </ul>
             <p>Total Stars: {{ matchmakingResult.redTeam.totalStars }}</p>
             <p>Average Tier Weight: {{ matchmakingResult.redTeam.averageTierWeight }}</p>
         </div>

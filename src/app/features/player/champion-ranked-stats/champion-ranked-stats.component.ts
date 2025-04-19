@@ -35,4 +35,8 @@ export class ChampionRankedStatsComponent implements OnInit {
       }
     });    
   }
+
+  getCountMatchs(){
+    return this.championRankedStats.length > 0 ? this.championRankedStats.reduce((sum, stat) => sum + stat.matches, 0) : '';
+  }
 }
