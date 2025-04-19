@@ -1,5 +1,5 @@
 .player-details {
     max-height: 70vh; /* ou ajuste como quiser */
     overflow-y: auto;
-    padding-right: 8px; /* pra não cortar o conteúdo com a scrollbar */
+    padding-right: 8px;
 }

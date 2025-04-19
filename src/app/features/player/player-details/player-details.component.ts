@@ -13,5 +13,10 @@ import { ChampionRankedStatsComponent } from '../champion-ranked-stats/champion-
 export class PlayerDetailsComponent {
   
 
-  constructor(@Inject(NZ_MODAL_DATA) public data: { riotId: string }) {}
+  constructor(@Inject(NZ_MODAL_DATA) public data: { riotId: string, nickname: string }) {}
+
+  visualizarLeagueOfGraph(){
+    const path = this.data.nickname.replace(/ /g, '+').replace(/#/g, '-');
+    window.open('https://www.leagueofgraphs.com/summoner/br/'+ path, '_blank');
+  }
 }

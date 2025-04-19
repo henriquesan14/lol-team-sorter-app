@@ -193,12 +193,13 @@ export class GenerateMatchmakingComponent implements OnInit, OnDestroy {
   }
 
   visualizar(player: Player){
-    const modal = this.modal.create({
+    this.modal.create({
       nzTitle: `Estatísticas do jogador: ${player.riotName}#${player.riotTag}`,
       nzContent: PlayerDetailsComponent,
       nzWidth: '800px',
       nzData:{
-        riotId : player.riotId
+        riotId : player.riotId,
+        nickname: `${player.riotName}#${player.riotTag}`
       },
       nzFooter: null
     });
