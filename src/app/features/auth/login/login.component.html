@@ -1,0 +1,27 @@
+<div class="login-container">
+  <nz-card class="login-card">
+    <div class="login-header">
+      <img src="/images/icon-lol.png" alt="LoL Logo" class="lol-icon" />
+      <h2 class="login-title">LoL Team Sorter</h2>
+    </div>
+
+    <!-- Formulário de login -->
+    <form nz-form [formGroup]="loginForm" class="login-form">
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your username!">
+          <nz-input-group nzPrefixIcon="user">
+            <input type="text" nz-input formControlName="username" placeholder="Username" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your Password!">
+          <nz-input-group nzPrefixIcon="lock">
+            <input type="password" nz-input formControlName="password" placeholder="Password" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Entrar</button>
+    </form>
+  </nz-card>
+</div>
