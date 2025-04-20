@@ -12,6 +12,8 @@ import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideToastr } from 'ngx-toastr';
 import { ErrorHandlerInterceptor } from './core/interceptors/error-handle.interceptor';
+import { NotAuthenticatedInterceptor } from './core/interceptors/not-authenticated.interceptor';
+import { AccessTokenInterceptor } from './core/interceptors/access-token.interceptor';
 
 registerLocaleData(pt);
 
@@ -19,7 +21,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(withInterceptors([ErrorHandlerInterceptor])),
+    provideHttpClient(withInterceptors([AccessTokenInterceptor, NotAuthenticatedInterceptor, ErrorHandlerInterceptor])),
     provideNzIcons(icons),
     provideNzI18n(pt_BR),
     importProvidersFrom(FormsModule),

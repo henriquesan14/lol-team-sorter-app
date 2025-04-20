@@ -12,7 +12,7 @@ import { ChampionRankedStat } from '../../core/models/champion-ranked-stat.inter
 })
 export class PlayerService {
 
-  private API: string = `${environment.apiUrl}/players`;
+    private API: string = `${environment.apiUrl}/players`;
     constructor(private http: HttpClient) { }
   
     createPlayer(player: CreatePlayer): Observable<Player>{
