@@ -40,11 +40,33 @@
       <nz-header>
         <div class="app-header">
           <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
-              <span class="trigger"
-                 nz-icon
-                 [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'">
-              </span>
+            <span class="trigger"
+                  nz-icon
+                  [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'">
+            </span>
           </span>
+      
+          <!-- 🧑 Usuário / Menu -->
+          <div class="user-dropdown" nz-dropdown [nzDropdownMenu]="userMenu" nzTrigger="click">
+            <span class="user-info">
+              <img src="/images/icon-lol.png" alt="avatar" class="avatar" />
+              <span class="username">{{nomeUsuario}}</span>
+              <i nz-icon nzType="down"></i>
+            </span>
+          </div>
+      
+          <nz-dropdown-menu #userMenu="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item (click)="goToProfile()">
+                <i nz-icon nzType="user" class="me-1"></i>
+                Perfil
+              </li>
+              <li nz-menu-item (click)="logout()">
+                <i nz-icon nzType="logout" class="me-1"></i>
+                Sair
+              </li>
+            </ul>
+          </nz-dropdown-menu>
         </div>
       </nz-header>
       <nz-content>

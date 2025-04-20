@@ -88,3 +88,38 @@
     overflow: auto;
   }
   
+  ::ng-deep .ant-dropdown-menu-item {
+    padding: 10px 16px;
+    font-size: 15px;
+  }
+
+  .app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+  
+    .user-dropdown {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+  
+      .user-info {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+  
+        .avatar {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+  
+        .username {
+          color: #1890ff;;
+          font-weight: 500;
+        }
+      }
+    }
+  }
