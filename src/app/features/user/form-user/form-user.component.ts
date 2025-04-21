@@ -69,6 +69,7 @@ export class FormUserComponent implements OnInit, OnDestroy {
     }
   
     submitForm(): void {
+      console.log(this.userForm)
       if (this.userForm.invalid) {
         this.markFormGroupTouched(this.userForm);
         return;
@@ -128,7 +129,7 @@ export class FormUserComponent implements OnInit, OnDestroy {
   
     private markFormGroupTouched(formGroup: FormGroup): void {
       Object.values(formGroup.controls).forEach(control => {
-        control.markAsDirty();
+        control.markAllAsTouched();
         control.updateValueAndValidity({ onlySelf: true });
       });
     }

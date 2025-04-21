@@ -2,20 +2,36 @@ import { AbstractControl, FormGroup, ValidationErrors } from "@angular/forms";
 
 export class ConfirmPasswordValidators {
   static confirmPasswordValidator(control: AbstractControl): ValidationErrors | null {
-    const form = control as FormGroup;
-    const password = form.get('password');
-    const confirmPassword = form.get('confirmPassword');
+    const password = control.get('password');
+    const confirmPassword = control.get('confirmPassword');
 
-    if (!password?.value || !confirmPassword?.value) {
+    if (!password || !confirmPassword) return null;
+
+    const passwordValue = password.value;
+    const confirmPasswordValue = confirmPassword.value;
+
+    // Se senha estiver vazia (edição sem troca), não valida nada
+    if (!passwordValue) {
+      confirmPassword.setErrors(null);
       return null;
     }
 
-    if (confirmPassword.value.length > 0 && confirmPassword.value !== password.value) {
-      confirmPassword.setErrors({ passwordsMismatch: true });
-    } else {
-      confirmPassword.setErrors(null); // limpa o erro se estiver tudo certo
+    // Se senha foi preenchida mas confirmação está vazia
+    if (passwordValue && !confirmPasswordValue) {
+      confirmPassword.setErrors({ required: true });
+      confirmPassword?.markAsTouched();
+      return { required: true };
     }
 
+    // Se senha e confirmação existem mas não batem
+    if (passwordValue !== confirmPasswordValue) {
+      confirmPassword.setErrors({ notMatch: true });
+      confirmPassword?.markAsTouched();
+      return { notMatch: true };
+    }
+
+    // Tudo certo
+    confirmPassword.setErrors(null);
     return null;
   }
 }

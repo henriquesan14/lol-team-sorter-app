@@ -42,7 +42,7 @@
             </nz-form-label>
             <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="
     userForm.get('confirmPassword')?.hasError('required') ? 'Confirme a senha.' :
-    userForm.get('confirmPassword')?.hasError('passwordsMismatch') ? 'As senhas não coincidem.' : ''
+    userForm.get('confirmPassword')?.hasError('notMatch') ? 'As senhas não coincidem.' : ''
 ">
                 <input nz-input type="password" id="confirmPassword" formControlName="confirmPassword"
                     placeholder="Confirm Password" maxlength="30" />
