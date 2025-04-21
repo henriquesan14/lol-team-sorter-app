@@ -2,7 +2,7 @@ import { Component, Inject, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { UserService } from '../../../shared/services/user.service';
-import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
+import { NZ_MODAL_DATA, NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../../../core/models/user.interface';
 import { CreateUser } from '../../../core/models/create-user.interface';
@@ -10,14 +10,19 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { ConfirmPasswordValidators } from '../../../shared/validators/confirm-password.validator';
 import { GroupService } from '../../../shared/services/group.service';
 import { Group } from '../../../core/models/group.interface';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzDrawerModule, NzDrawerService } from 'ng-zorro-antd/drawer';
+import { FormGroupComponent } from '../../group/form-group/form-group.component';
 
 @Component({
   selector: 'app-form-user',
   standalone: true,
-  imports: [ReactiveFormsModule, NzFormModule, NzSelectModule, NzButtonModule, NzInputModule],
+  imports: [ReactiveFormsModule, NzFormModule, NzSelectModule, NzButtonModule, NzInputModule, NzSpaceModule, NzToolTipModule, NzIconModule, NzDrawerModule],
   templateUrl: './form-user.component.html',
   styleUrl: './form-user.component.css'
 })
@@ -26,6 +31,7 @@ export class FormUserComponent implements OnInit, OnDestroy {
     private userService = inject(UserService);
     private groupService = inject(GroupService);
     private toastr = inject(ToastrService);
+    private drawerService = inject(NzDrawerService);
     private destroy$ = new Subject<void>();
     isSubmitting = false;
 
@@ -71,7 +77,6 @@ export class FormUserComponent implements OnInit, OnDestroy {
     }
   
     submitForm(): void {
-      console.log(this.userForm)
       if (this.userForm.invalid) {
         this.markFormGroupTouched(this.userForm);
         return;
@@ -117,6 +122,20 @@ export class FormUserComponent implements OnInit, OnDestroy {
         },
         complete: () => {
           this.isSubmitting = false;
+        }
+      });
+    }
+
+    openCreateGroupDrawer(): void {
+      const drawerRef = this.drawerService.create({
+        nzTitle: 'Novo Grupo',
+        nzContent: FormGroupComponent,
+        nzWidth: 480,
+      });
+    
+      drawerRef.afterClose.subscribe((shouldRefresh: boolean) => {
+        if (shouldRefresh) {
+          this.getGroups();
         }
       });
     }

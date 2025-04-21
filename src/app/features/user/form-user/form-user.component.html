@@ -54,13 +54,18 @@
                 <span>Group</span>
             </nz-form-label>
             <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor, selecione um grupo.">
-                <nz-select formControlName="groupId" class="groupSelect" [nzId]="'groupId'"
-                nzErrorTip="Por favor, confirme a senha do usuário">
-                <nz-option nzLabel="Selecione..." [nzValue]="''"></nz-option>
-                @for(group of groups; track group.id){
-                    <nz-option [nzLabel]="group.name" [nzValue]="group.id"></nz-option>
-                }
-            </nz-select>
+                <nz-space [nzAlign]="'start'" [nzWrap]="false">
+                    <nz-select formControlName="groupId" class="groupSelect" [nzId]="'groupId'" style="min-width: 200px">
+                      <nz-option nzLabel="Selecione..." [nzValue]="''"></nz-option>
+                      @for(group of groups; track group.id){
+                        <nz-option [nzLabel]="group.name" [nzValue]="group.id"></nz-option>
+                      }
+                    </nz-select>
+                  
+                    <button type="button" class="ms-1" nz-button nzType="primary" nzSize="small" (click)="openCreateGroupDrawer()" nz-tooltip nzTooltipTitle="Novo grupo" nzTooltipPlacement="top">
+                        <span nz-icon nzType="plus-circle"></span>
+                    </button>
+                  </nz-space>
             </nz-form-control>
         </nz-form-item>
 

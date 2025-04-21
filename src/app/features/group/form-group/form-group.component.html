@@ -1,0 +1,52 @@
+<form [formGroup]="groupForm" (ngSubmit)="submit()" nz-form>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>Nome</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor, insira o nome do grupo.">
+        <input nz-input formControlName="name" id="name" placeholder="Nome do grupo" />
+      </nz-form-control>
+    </nz-form-item>
+  
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Permissões</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        @for(group of permissions; track group.permissionCategory) {
+          <div class="mb-2">
+            <strong>{{ group.permissionCategory }}</strong>
+            <div class="ps-3 mb-1">
+              <label
+                nz-checkbox
+                [nzChecked]="areAllSelected(group.permissions)"
+                (nzCheckedChange)="toggleAll(group.permissions, $event)">
+                Selecionar todos
+              </label>
+            </div>
+            <div class="ps-3">
+              @for(perm of group.permissions; track perm.id) {
+                <label
+                  nz-checkbox
+                  [nzValue]="perm.name"
+                  [nzChecked]="groupForm.get('permissions')?.value.includes(perm.id)"
+                  (nzCheckedChange)="onCheckboxChange($event, perm.id)">
+                  {{ perm.name }}
+                </label>
+                <br />
+              }
+            </div>
+          </div>
+        }
+    
+        @if(groupForm.get('permissions')?.invalid && groupForm.get('permissions')?.touched) {
+          <div class="ant-form-explain">Selecione ao menos uma permissão.</div>
+        }
+      </nz-form-control>
+    </nz-form-item>
+  
+    <nz-form-item nz-row>
+      <nz-form-control [nzSpan]="14" [nzOffset]="6">
+        <button nz-button nzType="primary" class="me-1" [disabled]="groupForm.invalid">Salvar</button>
+        <button nz-button (click)="cancel()">Cancelar</button>
+      </nz-form-control>
+    </nz-form-item>
+  
+  </form>
