@@ -17,6 +17,7 @@
   }
   
   .header-trigger {
+    display: flex;
     height: 64px;
     padding: 20px 24px;
     font-size: 20px;
@@ -97,7 +98,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 16px;
+    padding: 0 16px 0 0;
   
     .user-dropdown {
       cursor: pointer;
