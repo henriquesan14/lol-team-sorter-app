@@ -1,6 +1,6 @@
 import { Component, Inject, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { UserService } from '../../../shared/services/user.service';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 import { ToastrService } from 'ngx-toastr';
@@ -22,7 +22,7 @@ import { Group } from '../../../core/models/group.interface';
   styleUrl: './form-user.component.css'
 })
 export class FormUserComponent implements OnInit, OnDestroy {
-  private fb = inject(NonNullableFormBuilder);
+    private fb = inject(NonNullableFormBuilder);
     private userService = inject(UserService);
     private groupService = inject(GroupService);
     private toastr = inject(ToastrService);
@@ -61,7 +61,9 @@ export class FormUserComponent implements OnInit, OnDestroy {
     }
 
     getGroups(){
-      this.groupService.getGroups().subscribe({
+      this.groupService.getGroups()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
         next: (res) => {
           this.groups = res;
         }

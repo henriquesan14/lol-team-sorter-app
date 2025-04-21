@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { NzModalModule, NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { Subject, takeUntil } from 'rxjs';
 import { UserService } from '../../../shared/services/user.service';
@@ -17,7 +17,7 @@ import { FormUserComponent } from '../form-user/form-user.component';
   templateUrl: './list-users.component.html',
   styleUrl: './list-users.component.css'
 })
-export class ListUsersComponent {
+export class ListUsersComponent implements OnInit, OnDestroy {
     private destroy$ = new Subject<void>();
     confirmModal?: NzModalRef;
     private modal = inject(NzModalService);
