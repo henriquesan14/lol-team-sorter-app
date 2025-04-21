@@ -1,0 +1,41 @@
+<h1>Usuários</h1>
+  <div>
+    <button class="mb-2 me-1" nz-button nzType="primary" (click)="openNewPlayerModal()">
+      Novo usuário
+    </button>
+    @if(setOfCheckedId.size > 0){
+      <button (click)="showConfirmDeleteBatch()" nz-tooltip nzTooltipTitle="Excluir selecionados" nzTooltipPlacement="top" nz-button nzType="primary" nzDanger>
+        <span nz-icon nzType="delete"></span>
+      </button>
+    }
+    <nz-table [nzData]="users" [nzFrontPagination]="false">
+      <thead>
+        <tr>
+          <th [nzChecked]="checked" [nzIndeterminate]="indeterminate" nzLabel="Select all"
+            (nzCheckedChange)="onAllChecked($event)"></th>
+          <th>Name</th>
+          <th>Group</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(user of users; track user.id){
+        <tr>
+          <td [nzChecked]="setOfCheckedId.has(user.id)" [nzLabel]="user.name"
+            (nzCheckedChange)="onItemChecked(user.id, $event)"></td>
+          <td>{{ user.name }}</td>
+          <td>{{ user.group.name }}</td>
+          <td>
+            <button nz-tooltip nzTooltipTitle="Editar" nzTooltipPlacement="top"  class="me-1" nz-button nzType="primary" (click)="openEditPlayerModal(user)">
+              <span nz-icon nzType="edit"></span>
+            </button>
+            <button nz-tooltip nzTooltipTitle="Excluir" nzTooltipPlacement="top" nz-button nzType="primary" (click)="showConfirm(user.id)" nzDanger>
+              <span nz-icon nzType="delete"></span>
+            </button>
+          </td>
+        </tr>
+        }@empty {}
+      </tbody>
+    </nz-table>
+  </div>
+

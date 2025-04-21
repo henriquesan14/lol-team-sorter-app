@@ -28,6 +28,13 @@ export class MainLayoutComponent {
         { label: 'Histórico', link: 'matchmaking/list' }
       ]
     },
+    {
+      title: 'Usuários',
+      icon: 'user',
+      children: [
+        { label: 'Listar', link: 'users/list' },
+      ]
+    },
   ]
 
   goToProfile() {
