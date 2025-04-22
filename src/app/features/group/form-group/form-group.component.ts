@@ -118,7 +118,20 @@ export class FormGroupComponent implements OnInit, OnDestroy {
   submit(): void {
     if (this.groupForm.valid) {
       this.loadingGroup = true;
-      this.groupService.createGroup(this.groupForm.value as CreateGroup)
+      if(this.data && this.data.groupToEdit){
+        this.updateGroup();
+        return;
+      }
+      
+      this.createGroup();
+
+    } else {
+      this.groupForm.markAllAsTouched();
+    }
+  }
+
+  createGroup(){
+    this.groupService.createGroup(this.groupForm.value as CreateGroup)
       .pipe(
         finalize(() => {
           this.loadingGroup = false;
@@ -131,10 +144,25 @@ export class FormGroupComponent implements OnInit, OnDestroy {
           this.close(true);
         },
       })
-      
-    } else {
-      this.groupForm.markAllAsTouched();
-    }
+  }
+
+  updateGroup(){
+    this.groupService.updateGroup({
+      id: this.data.groupToEdit.id,
+      ...this.groupForm.value
+    } as CreateGroup)
+      .pipe(
+        finalize(() => {
+          this.loadingGroup = false;
+          this.cdr.detectChanges();
+        })
+      )
+      .subscribe({
+        next: () => {
+          this.toastr.success('Grupo atualizado com sucesso!', 'Sucesso')
+          this.close(true);
+        },
+      })
   }
 
   close(result: boolean): void {
