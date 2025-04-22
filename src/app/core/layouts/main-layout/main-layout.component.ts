@@ -52,6 +52,6 @@ export class MainLayoutComponent {
 
   get nomeUsuario(){
     const response = this.localStorageService.getAuthStorage();
-    return response.user.name;
+    return response?.user.name;
   }
 }
