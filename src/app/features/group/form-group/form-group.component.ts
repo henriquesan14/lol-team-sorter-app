@@ -40,16 +40,45 @@ export class FormGroupComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.getPermissions();
     this.groupForm = this.fb.group({
       name: [null, Validators.required],
       permissions: this.fb.array([])
     });
+
+    if (this.data?.groupToEdit?.id) {
+      this.loadGroup(this.data.groupToEdit.id);
+    } else {
+      this.getPermissions(); 
+    }
   }
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  loadGroup(groupId: string): void {
+    this.loadingGroup = true;
+    this.groupService.getGroupById(groupId)
+      .pipe(
+        finalize(() => {
+          this.loadingGroup = false;
+          this.cdr.detectChanges();
+        }),
+        takeUntil(this.destroy$)
+      )
+      .subscribe({
+        next: (group: Group) => {
+          this.groupForm.patchValue({
+            name: group.name
+          });
+  
+          const formArray = this.groupForm.get('permissions') as FormArray;
+          group.permissions.forEach(p => formArray.push(this.fb.control(p.id)));
+  
+          this.getPermissions();
+        }
+      });
   }
 
   getPermissions(){
