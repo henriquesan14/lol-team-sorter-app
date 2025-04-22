@@ -66,7 +66,7 @@
             <app-star-rating [readOnly]="true" [(rating)]="player.stars"></app-star-rating>
           </td>
           <td>
-            <button hasRole="VIEW_TIER_PLAYER" nz-tooltip nzTooltipTitle="Visualizar" nzTooltipPlacement="top"  class="me-1" nz-button nzType="primary" (click)="visualizar(player)">
+            <button hasRole="VIEW_PLAYER" nz-tooltip nzTooltipTitle="Visualizar" nzTooltipPlacement="top"  class="me-1" nz-button nzType="primary" (click)="visualizar(player)">
               <span nz-icon nzType="eye"></span>
             </button>
             <button hasRole="UPDATE_RANKED_TIER_PLAYER" nz-tooltip nzTooltipTitle="Atualizar tier" nzTooltipPlacement="top"  class="me-1" nz-button nzType="default" (click)="updateRankedTier(player.id)">
