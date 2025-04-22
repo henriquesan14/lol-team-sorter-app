@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -7,7 +7,10 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { PermissionService } from '../../../shared/services/permission.service';
 import { PermissionByCategory } from '../../../core/models/permission-by-category.interface';
-import { Subject, takeUntil } from 'rxjs';
+import { finalize, Subject, takeUntil } from 'rxjs';
+import { GroupService } from '../../../shared/services/group.service';
+import { ToastrService } from 'ngx-toastr';
+import { CreateGroup } from '../../../core/models/create-group.interface';
 
 @Component({
   selector: 'app-form-group',
@@ -21,11 +24,15 @@ export class FormGroupComponent implements OnInit, OnDestroy {
   groupForm!: FormGroup;
 
   permissions: PermissionByCategory[] = [];
+  loadingGroup = false;
 
   constructor(
     private fb: FormBuilder,
     private drawerRef: NzDrawerRef,
-    private permissionService: PermissionService
+    private permissionService: PermissionService,
+    private groupService: GroupService,
+    private toastr: ToastrService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -76,11 +83,22 @@ export class FormGroupComponent implements OnInit, OnDestroy {
   
 
   submit(): void {
-    console.log(this.groupForm)
     if (this.groupForm.valid) {
-      // Aqui você faria a chamada para criar o grupo no back-end
-      console.log('Grupo criado:', this.groupForm.value);
-      // this.drawerRef.close(true);
+      this.loadingGroup = true;
+      this.groupService.createGroup(this.groupForm.value as CreateGroup)
+      .pipe(
+        finalize(() => {
+          this.loadingGroup = false;
+          this.cdr.detectChanges();
+        })
+      )
+      .subscribe({
+        next: () => {
+          this.toastr.success('Grupo cadastrado com sucesso!', 'Sucesso')
+          this.drawerRef.close(true);
+        },
+      })
+      
     } else {
       this.groupForm.markAllAsTouched();
     }
