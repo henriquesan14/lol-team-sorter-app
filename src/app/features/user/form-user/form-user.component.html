@@ -19,7 +19,7 @@
             userForm.get('username')?.hasError('pattern') ? 'Username inválido. Use apenas letras, números, hífen e underline.' :
             ''
           ">
-                <input nz-input id="username" formControlName="username" placeholder="Username" maxlength="30" />
+                <input autocomplete="username" nz-input id="username" formControlName="username" placeholder="Username" maxlength="30" />
             </nz-form-control>
         </nz-form-item>
 
@@ -31,7 +31,7 @@
     userForm.get('password')?.hasError('required') ? 'Por favor, insira a senha do usuário.' :
     userForm.get('password')?.hasError('minlength') ? 'A senha deve ter no mínimo 6 caracteres.' : ''
 ">
-                <input nz-input type="password" id="password" formControlName="password" placeholder="Password"
+                <input autocomplete="new-password" nz-input type="password" id="password" formControlName="password" placeholder="Password"
                     maxlength="30" />
             </nz-form-control>
         </nz-form-item>
@@ -44,7 +44,7 @@
     userForm.get('confirmPassword')?.hasError('required') ? 'Confirme a senha.' :
     userForm.get('confirmPassword')?.hasError('notMatch') ? 'As senhas não coincidem.' : ''
 ">
-                <input nz-input type="password" id="confirmPassword" formControlName="confirmPassword"
+                <input autocomplete="new-password" nz-input type="password" id="confirmPassword" formControlName="confirmPassword"
                     placeholder="Confirm Password" maxlength="30" />
             </nz-form-control>
         </nz-form-item>

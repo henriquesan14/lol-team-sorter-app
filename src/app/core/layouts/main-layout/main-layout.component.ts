@@ -29,10 +29,11 @@ export class MainLayoutComponent {
       ]
     },
     {
-      title: 'Usuários',
-      icon: 'user',
+      title: 'Controle de acesso',
+      icon: 'lock',
       children: [
-        { label: 'Listar', link: 'users/list' },
+        { label: 'Usuários', link: 'users/list' },
+        { label: 'Grupos', link: 'groups/list' },
       ]
     },
   ]

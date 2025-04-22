@@ -18,8 +18,8 @@ export const routes: Routes = [
     component: MainLayoutComponent,
     children: [
       { path: 'matchmaking', loadChildren: () => import('./features/matchmaking/matchmaking.routes').then(m => m.MATCHMAKING_ROUTES) },
-      { path: 'players', loadChildren: () => import('./features/player/player.routes').then(m => m.PLAYER_ROUTES) },
-      { path: 'users', loadChildren: () => import('./features/user/user.routes').then(m => m.USER_ROUTES) }
+      { path: 'users', loadChildren: () => import('./features/user/user.routes').then(m => m.USER_ROUTES) },
+      { path: 'groups', loadChildren: () => import('./features/group/group.routes').then(m => m.GROUP_ROUTES) }
     ],
     canActivate: [AuthGuard],
   },

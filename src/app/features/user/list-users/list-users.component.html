@@ -14,6 +14,7 @@
           <th [nzChecked]="checked" [nzIndeterminate]="indeterminate" nzLabel="Select all"
             (nzCheckedChange)="onAllChecked($event)"></th>
           <th>Name</th>
+          <th>Username</th>
           <th>Group</th>
           <th>Ações</th>
         </tr>
@@ -24,6 +25,7 @@
           <td [nzChecked]="setOfCheckedId.has(user.id)" [nzLabel]="user.name"
             (nzCheckedChange)="onItemChecked(user.id, $event)"></td>
           <td>{{ user.name }}</td>
+          <td>{{ user.username }}</td>
           <td>{{ user.group.name }}</td>
           <td>
             <button nz-tooltip nzTooltipTitle="Editar" nzTooltipPlacement="top"  class="me-1" nz-button nzType="primary" (click)="openEditPlayerModal(user)">

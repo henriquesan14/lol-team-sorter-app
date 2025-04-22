@@ -20,4 +20,16 @@ export class GroupService {
   createGroup(group: CreateGroup): Observable<string>{
     return this.http.post<string>(`${this.API}/`, group);
   }
+
+  updateGroup(group: CreateGroup){
+    return this.http.put(`${this.API}/`, group);
+  }
+
+  deleteGroup(id: string){
+    return this.http.delete(`${this.API}/${id}`,);
+  }
+
+  deleteGroupsBatch(playerIds: string[]){
+    return this.http.post(`${this.API}/delete`, {playerIds});
+  }
 }

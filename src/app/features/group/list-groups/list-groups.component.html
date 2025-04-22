@@ -1,0 +1,39 @@
+<h1>Grupos</h1>
+  <div>
+    <button class="mb-2 me-1" nz-button nzType="primary" (click)="openNewGroupModal()">
+      Novo grupo
+    </button>
+    @if(setOfCheckedId.size > 0){
+      <button (click)="showConfirmDeleteBatch()" nz-tooltip nzTooltipTitle="Excluir selecionados" nzTooltipPlacement="top" nz-button nzType="primary" nzDanger>
+        <span nz-icon nzType="delete"></span>
+      </button>
+    }
+    <nz-table [nzData]="groups" [nzFrontPagination]="false">
+      <thead>
+        <tr>
+          <th [nzChecked]="checked" [nzIndeterminate]="indeterminate" nzLabel="Select all"
+            (nzCheckedChange)="onAllChecked($event)"></th>
+          <th>Name</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(group of groups; track group.id){
+        <tr>
+          <td [nzChecked]="setOfCheckedId.has(group.id)" [nzLabel]="group.name"
+            (nzCheckedChange)="onItemChecked(group.id, $event)"></td>
+          <td>{{ group.name }}</td>
+          <td>
+            <button nz-tooltip nzTooltipTitle="Editar" nzTooltipPlacement="top"  class="me-1" nz-button nzType="primary" (click)="openEditGroupModal(group)">
+              <span nz-icon nzType="edit"></span>
+            </button>
+            <button nz-tooltip nzTooltipTitle="Excluir" nzTooltipPlacement="top" nz-button nzType="primary" (click)="showConfirm(group.id)" nzDanger>
+              <span nz-icon nzType="delete"></span>
+            </button>
+          </td>
+        </tr>
+        }@empty {}
+      </tbody>
+    </nz-table>
+  </div>
+

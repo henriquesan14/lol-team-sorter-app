@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, Optional } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -11,6 +11,8 @@ import { finalize, Subject, takeUntil } from 'rxjs';
 import { GroupService } from '../../../shared/services/group.service';
 import { ToastrService } from 'ngx-toastr';
 import { CreateGroup } from '../../../core/models/create-group.interface';
+import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
+import { Group } from '../../../core/models/group.interface';
 
 @Component({
   selector: 'app-form-group',
@@ -28,11 +30,13 @@ export class FormGroupComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private drawerRef: NzDrawerRef,
+    @Optional() private drawerRef: NzDrawerRef,
+    @Optional() private modalRef: NzModalRef,
     private permissionService: PermissionService,
     private groupService: GroupService,
     private toastr: ToastrService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    @Optional() @Inject(NZ_MODAL_DATA) public data: { groupToEdit: Group} 
   ) {}
 
   ngOnInit(): void {
@@ -95,7 +99,7 @@ export class FormGroupComponent implements OnInit, OnDestroy {
       .subscribe({
         next: () => {
           this.toastr.success('Grupo cadastrado com sucesso!', 'Sucesso')
-          this.drawerRef.close(true);
+          this.close(true);
         },
       })
       
@@ -104,7 +108,11 @@ export class FormGroupComponent implements OnInit, OnDestroy {
     }
   }
 
-  cancel(): void {
-    this.drawerRef.close(false);
+  close(result: boolean): void {
+    if (this.drawerRef) {
+      this.drawerRef.close(result);
+    } else if (this.modalRef) {
+      this.modalRef.close(result);
+    }
   }
 }
