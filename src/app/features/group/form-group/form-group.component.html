@@ -47,7 +47,7 @@
         <button nz-button nzType="primary" class="me-1" [nzLoading]="loadingGroup" [disabled]="groupForm.invalid" >
           {{ data && data.groupToEdit ? 'Editar' : 'Cadastrar' }}
         </button>
-        <button nz-button (click)="close(false)">Cancelar</button>
+        <button nz-button type="button" (click)="close(false)">Cancelar</button>
       </nz-form-control>
     </nz-form-item>
   

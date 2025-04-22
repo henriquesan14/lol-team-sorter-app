@@ -133,8 +133,8 @@ export class ListGroupsComponent implements OnInit, OnDestroy {
       }
     
       deletarPlayersBatch() {
-        const userIds = this.groups.filter(data => this.setOfCheckedId.has(data.id)).map(p => p.id);
-        this.groupService.deleteGroupsBatch(userIds).subscribe({
+        const groupIds = this.groups.filter(data => this.setOfCheckedId.has(data.id)).map(p => p.id);
+        this.groupService.deleteGroupsBatch(groupIds).subscribe({
           next: () => {
             this.toastr.success('Grupos removidos!', 'Sucesso');
             this.getGroups();

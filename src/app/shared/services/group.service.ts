@@ -29,8 +29,8 @@ export class GroupService {
     return this.http.delete(`${this.API}/${id}`,);
   }
 
-  deleteGroupsBatch(playerIds: string[]){
-    return this.http.post(`${this.API}/delete`, {playerIds});
+  deleteGroupsBatch(groupIds: string[]){
+    return this.http.post(`${this.API}/delete`, {groupIds});
   }
 
   getGroupById(id: string): Observable<Group>{
