@@ -16,12 +16,15 @@ import { ToastrService } from 'ngx-toastr';
 import { Subject, takeUntil } from 'rxjs';
 import { MatchmakingResultComponent } from '../matchmaking-result/matchmaking-result.component';
 import { PlayerDetailsComponent } from '../../player/player-details/player-details.component';
+import { HasRoleDirective } from '../../../shared/directives/has-role.directive';
 
 
 @Component({
   selector: 'app-generate-matchmaking',
   standalone: true,
-  imports: [CommonModule, NzButtonModule, NzTableModule, AppStarRatingComponent, NzGridModule, NzModalModule, NzIconModule, NzToolTipModule, MatchmakingResultComponent ],
+  imports: [CommonModule, NzButtonModule, NzTableModule, AppStarRatingComponent, NzGridModule, NzModalModule, NzIconModule, NzToolTipModule, MatchmakingResultComponent,
+    HasRoleDirective
+   ],
   templateUrl: './generate-matchmaking.component.html',
   styleUrl: './generate-matchmaking.component.css',
 })

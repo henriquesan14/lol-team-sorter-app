@@ -16,12 +16,13 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { ToastrService } from 'ngx-toastr';
+import { HasRoleDirective } from '../../../shared/directives/has-role.directive';
 
 @Component({
   selector: 'app-list-matchmaking',
   standalone: true,
   imports: [NzTableModule, CommonModule, NzButtonModule, NzIconModule, NzToolTipModule, NzModalModule, NzPaginationModule, NzSelectModule, NzFormModule,
-     ReactiveFormsModule, NzDatePickerModule, NzIconModule],
+     ReactiveFormsModule, NzDatePickerModule, NzIconModule, HasRoleDirective],
   templateUrl: './list-matchmaking.component.html',
   styleUrl: './list-matchmaking.component.css'
 })

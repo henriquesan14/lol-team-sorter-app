@@ -9,11 +9,12 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { FormGroupComponent } from '../form-group/form-group.component';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { HasRoleDirective } from '../../../shared/directives/has-role.directive';
 
 @Component({
   selector: 'app-list-groups',
   standalone: true,
-  imports: [NzTableModule, NzButtonModule, NzModalModule, NzIconModule, NzToolTipModule],
+  imports: [NzTableModule, NzButtonModule, NzModalModule, NzIconModule, NzToolTipModule, HasRoleDirective],
   templateUrl: './list-groups.component.html',
   styleUrl: './list-groups.component.css'
 })

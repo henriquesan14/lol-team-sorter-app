@@ -1,10 +1,10 @@
 <h1>Usuários</h1>
   <div>
-    <button class="mb-2 me-1" nz-button nzType="primary" (click)="openNewPlayerModal()">
+    <button hasRole="CREATE_USER" class="mb-2 me-1" nz-button nzType="primary" (click)="openNewPlayerModal()">
       Novo usuário
     </button>
     @if(setOfCheckedId.size > 0){
-      <button (click)="showConfirmDeleteBatch()" nz-tooltip nzTooltipTitle="Excluir selecionados" nzTooltipPlacement="top" nz-button nzType="primary" nzDanger>
+      <button hasRole="DELETE_USER" (click)="showConfirmDeleteBatch()" nz-tooltip nzTooltipTitle="Excluir selecionados" nzTooltipPlacement="top" nz-button nzType="primary" nzDanger>
         <span nz-icon nzType="delete"></span>
       </button>
     }
@@ -28,10 +28,10 @@
           <td>{{ user.username }}</td>
           <td>{{ user.group.name }}</td>
           <td>
-            <button nz-tooltip nzTooltipTitle="Editar" nzTooltipPlacement="top"  class="me-1" nz-button nzType="primary" (click)="openEditPlayerModal(user)">
+            <button hasRole="EDIT_USER" nz-tooltip nzTooltipTitle="Editar" nzTooltipPlacement="top"  class="me-1" nz-button nzType="primary" (click)="openEditPlayerModal(user)">
               <span nz-icon nzType="edit"></span>
             </button>
-            <button nz-tooltip nzTooltipTitle="Excluir" nzTooltipPlacement="top" nz-button nzType="primary" (click)="showConfirm(user.id)" nzDanger>
+            <button hasRole="DELETE_USER" nz-tooltip nzTooltipTitle="Excluir" nzTooltipPlacement="top" nz-button nzType="primary" (click)="showConfirm(user.id)" nzDanger>
               <span nz-icon nzType="delete"></span>
             </button>
           </td>

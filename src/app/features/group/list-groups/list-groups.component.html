@@ -1,10 +1,10 @@
 <h1>Grupos</h1>
   <div>
-    <button class="mb-2 me-1" nz-button nzType="primary" (click)="openNewGroupModal()">
+    <button hasRole="CREATE_USER" class="mb-2 me-1" nz-button nzType="primary" (click)="openNewGroupModal()">
       Novo grupo
     </button>
     @if(setOfCheckedId.size > 0){
-      <button (click)="showConfirmDeleteBatch()" nz-tooltip nzTooltipTitle="Excluir selecionados" nzTooltipPlacement="top" nz-button nzType="primary" nzDanger>
+      <button hasRole="DELETE_USER" (click)="showConfirmDeleteBatch()" nz-tooltip nzTooltipTitle="Excluir selecionados" nzTooltipPlacement="top" nz-button nzType="primary" nzDanger>
         <span nz-icon nzType="delete"></span>
       </button>
     }
@@ -24,10 +24,10 @@
             (nzCheckedChange)="onItemChecked(group.id, $event)"></td>
           <td>{{ group.name }}</td>
           <td>
-            <button nz-tooltip nzTooltipTitle="Editar" nzTooltipPlacement="top"  class="me-1" nz-button nzType="primary" (click)="openEditGroupModal(group)">
+            <button hasRole="EDIT_USER" nz-tooltip nzTooltipTitle="Editar" nzTooltipPlacement="top"  class="me-1" nz-button nzType="primary" (click)="openEditGroupModal(group)">
               <span nz-icon nzType="edit"></span>
             </button>
-            <button nz-tooltip nzTooltipTitle="Excluir" nzTooltipPlacement="top" nz-button nzType="primary" (click)="showConfirm(group.id)" nzDanger>
+            <button hasRole="DELETE_USER" nz-tooltip nzTooltipTitle="Excluir" nzTooltipPlacement="top" nz-button nzType="primary" (click)="showConfirm(group.id)" nzDanger>
               <span nz-icon nzType="delete"></span>
             </button>
           </td>

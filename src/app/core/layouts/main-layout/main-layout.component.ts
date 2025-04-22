@@ -6,11 +6,12 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzDropdownMenuComponent, NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { LocalstorageService } from '../../../shared/services/local-storage.service';
+import { HasRoleDirective } from '../../../shared/directives/has-role.directive';
 
 @Component({
   selector: 'app-main-layout',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterOutlet, NzIconModule, NzLayoutModule, NzMenuModule, RouterModule, NzDropdownMenuComponent, NzDropDownModule],
+  imports: [CommonModule, RouterLink, RouterOutlet, NzIconModule, NzLayoutModule, NzMenuModule, RouterModule, NzDropdownMenuComponent, NzDropDownModule, HasRoleDirective],
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.css'
 })
@@ -23,17 +24,19 @@ export class MainLayoutComponent {
     {
       title: 'Sorteio',
       icon: 'setting',
+      permission: 'VIEW_MATCHMAKING',
       children: [
-        { label: 'Novo', link: 'matchmaking/generate' },
-        { label: 'Histórico', link: 'matchmaking/list' }
+        { label: 'Novo', link: 'matchmaking/generate', permission: 'GENERATE_MATCHMAKING' },
+        { label: 'Histórico', link: 'matchmaking/list', permission: 'VIEW_MATCHMAKING' }
       ]
     },
     {
       title: 'Controle de acesso',
       icon: 'lock',
+      permission: 'VIEW_USER',
       children: [
-        { label: 'Usuários', link: 'users/list' },
-        { label: 'Grupos', link: 'groups/list' },
+        { label: 'Usuários', link: 'users/list', permission: 'VIEW_USER', },
+        { label: 'Grupos', link: 'groups/list', permission: 'VIEW_USER', },
       ]
     },
   ]

@@ -9,11 +9,12 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { FormUserComponent } from '../form-user/form-user.component';
+import { HasRoleDirective } from '../../../shared/directives/has-role.directive';
 
 @Component({
   selector: 'app-list-users',
   standalone: true,
-  imports: [NzTableModule, NzButtonModule, NzIconModule, NzModalModule, NzToolTipModule],
+  imports: [NzTableModule, NzButtonModule, NzIconModule, NzModalModule, NzToolTipModule, HasRoleDirective],
   templateUrl: './list-users.component.html',
   styleUrl: './list-users.component.css'
 })

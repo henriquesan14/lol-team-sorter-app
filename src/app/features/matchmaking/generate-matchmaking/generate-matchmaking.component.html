@@ -3,34 +3,34 @@
 @if(!matchmakingResult){
   <div>
     <div class="send-request">
-      <button class="me-1" nz-button nzType="primary" [disabled]="setOfCheckedId.size !== 10"
+      <button hasRole="GENERATE_MATCHMAKING" class="me-1" nz-button nzType="primary" [disabled]="setOfCheckedId.size !== 10"
         (click)="generateMatchmaking('STARS')">
         Sorteio por estrelas
       </button>
-      <button class="me-1" nz-button nzType="primary" [disabled]="setOfCheckedId.size !== 10" (click)="generateMatchmaking('TIER')">
+      <button hasRole="GENERATE_MATCHMAKING" class="me-1" nz-button nzType="primary" [disabled]="setOfCheckedId.size !== 10" (click)="generateMatchmaking('TIER')">
         Sorteio por elo
       </button>
-      <button class="me-1" nz-button nzType="primary" [disabled]="setOfCheckedId.size !== 10" (click)="generateMatchmaking('LANE')">
+      <button hasRole="GENERATE_MATCHMAKING" class="me-1" nz-button nzType="primary" [disabled]="setOfCheckedId.size !== 10" (click)="generateMatchmaking('LANE')">
         Sorteio por lane
       </button>
-      <button nz-button nzType="primary" [disabled]="setOfCheckedId.size !== 10" (click)="generateMatchmaking('RANDOM')">
+      <button hasRole="GENERATE_MATCHMAKING" nz-button nzType="primary" [disabled]="setOfCheckedId.size !== 10" (click)="generateMatchmaking('RANDOM')">
         Sorteio aleatório
       </button>
       <span>{{ setOfCheckedId.size }} jogadores selecionados</span>
     </div>
     
     <h2>Jogadores</h2>
-    <button class="mb-2 me-1" nz-button nzType="primary" (click)="openNewPlayerModal()">
+    <button hasRole="CREATE_PLAYER" class="mb-2 me-1" nz-button nzType="primary" (click)="openNewPlayerModal()">
       Novo jogador
     </button>
     @if(setOfCheckedId.size > 0){
-      <button (click)="updateRankedTiersBatch()"
+      <button hasRole="UPDATE_RANKED_TIER_PLAYER" (click)="updateRankedTiersBatch()"
       [nzLoading]="isLoadingUpdateTiers"
       [disabled]="isLoadingUpdateTiers"
       nz-tooltip nzTooltipTitle="Atualizar tier selecionados" nzTooltipPlacement="top"  class="me-1" nz-button nzType="default">
         <span nz-icon nzType="sync"></span>
       </button>
-      <button (click)="showConfirmDeleteBatch()" nz-tooltip nzTooltipTitle="Excluir selecionados" nzTooltipPlacement="top" nz-button nzType="primary" nzDanger>
+      <button hasRole="DELETE_PLAYER" (click)="showConfirmDeleteBatch()" nz-tooltip nzTooltipTitle="Excluir selecionados" nzTooltipPlacement="top" nz-button nzType="primary" nzDanger>
         <span nz-icon nzType="delete"></span>
       </button>
     }
@@ -66,16 +66,16 @@
             <app-star-rating [readOnly]="true" [(rating)]="player.stars"></app-star-rating>
           </td>
           <td>
-            <button nz-tooltip nzTooltipTitle="Visualizar" nzTooltipPlacement="top"  class="me-1" nz-button nzType="primary" (click)="visualizar(player)">
+            <button hasRole="VIEW_TIER_PLAYER" nz-tooltip nzTooltipTitle="Visualizar" nzTooltipPlacement="top"  class="me-1" nz-button nzType="primary" (click)="visualizar(player)">
               <span nz-icon nzType="eye"></span>
             </button>
-            <button nz-tooltip nzTooltipTitle="Atualizar tier" nzTooltipPlacement="top"  class="me-1" nz-button nzType="default" (click)="updateRankedTier(player.id)">
+            <button hasRole="UPDATE_RANKED_TIER_PLAYER" nz-tooltip nzTooltipTitle="Atualizar tier" nzTooltipPlacement="top"  class="me-1" nz-button nzType="default" (click)="updateRankedTier(player.id)">
               <span nz-icon nzType="sync"></span>
             </button>
-            <button nz-tooltip nzTooltipTitle="Editar" nzTooltipPlacement="top"  class="me-1" nz-button nzType="primary" (click)="openEditPlayerModal(player)">
+            <button hasRole="EDIT_PLAYER" nz-tooltip nzTooltipTitle="Editar" nzTooltipPlacement="top"  class="me-1" nz-button nzType="primary" (click)="openEditPlayerModal(player)">
               <span nz-icon nzType="edit"></span>
             </button>
-            <button nz-tooltip nzTooltipTitle="Excluir" nzTooltipPlacement="top" nz-button nzType="primary" (click)="showConfirm(player.id)" nzDanger>
+            <button hasRole="DELETE_PLAYER" nz-tooltip nzTooltipTitle="Excluir" nzTooltipPlacement="top" nz-button nzType="primary" (click)="showConfirm(player.id)" nzDanger>
               <span nz-icon nzType="delete"></span>
             </button>
           </td>

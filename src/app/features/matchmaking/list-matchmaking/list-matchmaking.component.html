@@ -24,7 +24,7 @@
   </div>
 </form>
 @if(setOfCheckedId.size > 0){
-  <button (click)="showConfirmDeleteBatch()" class="mb-1" nz-tooltip nzTooltipTitle="Excluir selecionados" nzTooltipPlacement="top" nz-button nzType="primary" nzDanger>
+  <button hasRole="DELETE_MATCHMAKING" (click)="showConfirmDeleteBatch()" class="mb-1" nz-tooltip nzTooltipTitle="Excluir selecionados" nzTooltipPlacement="top" nz-button nzType="primary" nzDanger>
     <span nz-icon nzType="delete"></span>
   </button>
 }
@@ -58,10 +58,10 @@
                 <td>{{ match.mode }}</td>
                 <td>{{ match.createdAt | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
                 <td>
-                  <button (click)="openShowMatchmaking(match)" nz-tooltip nzTooltipTitle="Visualizar" nzTooltipPlacement="top"  class="me-1" nz-button nzType="primary" >
+                  <button hasRole="VIEW_MATCHMAKING" (click)="openShowMatchmaking(match)" nz-tooltip nzTooltipTitle="Visualizar" nzTooltipPlacement="top"  class="me-1" nz-button nzType="primary" >
                     <span nz-icon nzType="eye"></span>
                   </button>
-                  <button (click)="showConfirmDelete(match.id)" nz-tooltip nzTooltipTitle="Excluir" nzTooltipPlacement="top" nz-button nzType="primary" nzDanger>
+                  <button hasRole="DELETE_MATCHMAKING" (click)="showConfirmDelete(match.id)" nz-tooltip nzTooltipTitle="Excluir" nzTooltipPlacement="top" nz-button nzType="primary" nzDanger>
                     <span nz-icon nzType="delete"></span>
                   </button>
                 </td>
