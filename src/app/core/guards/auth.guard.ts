@@ -8,6 +8,6 @@ export const AuthGuard: CanActivateFn = (next: ActivatedRouteSnapshot, state: Ro
     if (storageService.getAuthStorage()) {
         return true;
     }
-    router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
+    router.navigate(['/login']);
     return false;
 }

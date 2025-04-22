@@ -9,6 +9,7 @@ export const routes: Routes = [
     path: '',
     component: AuthLayoutComponent,
     children: [
+      { path: '', redirectTo: 'login', pathMatch: 'full' },
       { path: 'login', loadChildren: () => import('./features/auth/login.routes').then(m => m.LOGIN_ROUTES) },
     ],
     canActivate: [UnauthenticadedGuard],
@@ -17,12 +18,16 @@ export const routes: Routes = [
     path: '',
     component: MainLayoutComponent,
     children: [
+      { path: '', redirectTo: 'matchmaking', pathMatch: 'full' },
       { path: 'matchmaking', loadChildren: () => import('./features/matchmaking/matchmaking.routes').then(m => m.MATCHMAKING_ROUTES) },
       { path: 'users', loadChildren: () => import('./features/user/user.routes').then(m => m.USER_ROUTES) },
       { path: 'groups', loadChildren: () => import('./features/group/group.routes').then(m => m.GROUP_ROUTES) }
     ],
     canActivate: [AuthGuard],
   },
-  { path: '**', redirectTo: '' },
+  {
+    path: '**',
+    redirectTo: '/login'
+  },
 
 ];
