@@ -37,7 +37,7 @@
             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="mainLane" nzRequired>
                 <span>Main Lane</span>
             </nz-form-label>
-            <nz-select formControlName="mainLane" class="selectLane" id="mainLane">
+            <nz-select [nzId]="'mainLane'" formControlName="mainLane" class="selectLane">
                 <nz-option nzLabel="TOP" nzValue="TOP"></nz-option>
                 <nz-option nzLabel="JG" nzValue="JG"></nz-option>
                 <nz-option nzLabel="MID" nzValue="MID"></nz-option>
@@ -49,7 +49,7 @@
             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="secondaryLane" nzRequired>
                 <span>Secondary Lane</span>
             </nz-form-label>
-            <nz-select formControlName="secondaryLane" class="selectLane" id="secondaryLane">
+            <nz-select [nzId]="'secondaryLane'" formControlName="secondaryLane" class="selectLane">
                 <nz-option nzLabel="TOP" nzValue="TOP"></nz-option>
                 <nz-option nzLabel="JG" nzValue="JG"></nz-option>
                 <nz-option nzLabel="MID" nzValue="MID"></nz-option>
@@ -58,11 +58,11 @@
             </nz-select>
         </nz-form-item>
         <nz-form-item>
-            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="stars" nzRequired>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>
                 Stars
             </nz-form-label>
-            <nz-form-control [nzSm]="14" [nzXs]="24" id="stars">
-                <app-star-rating [rating]="+playerForm.get('stars')?.value! || 0"
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+                <app-star-rating id="stars" [rating]="+playerForm.get('stars')?.value! || 0"
                     (ratingChange)="playerForm.get('stars')?.setValue(+($event))">
                 </app-star-rating>
             </nz-form-control>

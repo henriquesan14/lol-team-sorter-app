@@ -3,17 +3,17 @@
 @if(!matchmakingResult){
   <div>
     <div class="send-request">
-      <button hasRole="GENERATE_MATCHMAKING" class="me-1" nz-button nzType="primary" [disabled]="setOfCheckedId.size !== 10"
+      <button [nzLoading]="isLoadingMatchmaking" hasRole="GENERATE_MATCHMAKING" class="me-1" nz-button nzType="primary" [disabled]="setOfCheckedId.size !== 10"
         (click)="generateMatchmaking('STARS')">
         Sorteio por estrelas
       </button>
-      <button hasRole="GENERATE_MATCHMAKING" class="me-1" nz-button nzType="primary" [disabled]="setOfCheckedId.size !== 10" (click)="generateMatchmaking('TIER')">
+      <button [nzLoading]="isLoadingMatchmaking" hasRole="GENERATE_MATCHMAKING" class="me-1" nz-button nzType="primary" [disabled]="setOfCheckedId.size !== 10" (click)="generateMatchmaking('TIER')">
         Sorteio por elo
       </button>
-      <button hasRole="GENERATE_MATCHMAKING" class="me-1" nz-button nzType="primary" [disabled]="setOfCheckedId.size !== 10" (click)="generateMatchmaking('LANE')">
+      <button [nzLoading]="isLoadingMatchmaking" hasRole="GENERATE_MATCHMAKING" class="me-1" nz-button nzType="primary" [disabled]="setOfCheckedId.size !== 10" (click)="generateMatchmaking('LANE')">
         Sorteio por lane
       </button>
-      <button hasRole="GENERATE_MATCHMAKING" nz-button nzType="primary" [disabled]="setOfCheckedId.size !== 10" (click)="generateMatchmaking('RANDOM')">
+      <button [nzLoading]="isLoadingMatchmaking" hasRole="GENERATE_MATCHMAKING" class="me-1" nz-button nzType="primary" [disabled]="setOfCheckedId.size !== 10" (click)="generateMatchmaking('RANDOM')">
         Sorteio aleatório
       </button>
       <span>{{ setOfCheckedId.size }} jogadores selecionados</span>

@@ -41,6 +41,7 @@ export class GenerateMatchmakingComponent implements OnInit, OnDestroy {
   indeterminate = false;
   setOfCheckedId = new Set<string>();
   isLoadingUpdateTiers = false;
+  isLoadingMatchmaking = false;
 
   ngOnInit(): void {
     this.getPlayers();
@@ -62,13 +63,18 @@ export class GenerateMatchmakingComponent implements OnInit, OnDestroy {
   }
 
   generateMatchmaking(mode: string){
+    this.isLoadingMatchmaking = true;
     const playerIds = this.players.filter(data => this.setOfCheckedId.has(data.id)).map(p => p.id);
     this.matchmakingService.generateMatchmaking({
       mode,
       playerIds
     }).subscribe({
       next: (res) => {
+        this.isLoadingMatchmaking = false;
         this.matchmakingResult = res;
+      },
+      error: () => {
+        this.isLoadingMatchmaking = false;
       }
     })
   }
