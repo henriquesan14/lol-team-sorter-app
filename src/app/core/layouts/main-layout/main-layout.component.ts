@@ -42,7 +42,7 @@ export class MainLayoutComponent {
   ]
 
   goToProfile() {
-    
+    this.router.navigateByUrl('/account/update-password');
   }
   
   logout() {
@@ -53,5 +53,13 @@ export class MainLayoutComponent {
   get nomeUsuario(){
     const response = this.localStorageService.getAuthStorage();
     return response?.user.name;
+  }
+
+  get avatar(){
+    const response = this.localStorageService.getAuthStorage();
+    if(response.user.avatarUrl){
+      return response.user.avatarUrl;
+    }
+    return '/images/icon-lol.png';
   }
 }

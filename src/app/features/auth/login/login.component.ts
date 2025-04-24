@@ -8,12 +8,14 @@ import { AuthService } from '../../../shared/services/auth.service';
 import { Credentials } from '../../../core/models/credentials.interface';
 import { Router } from '@angular/router';
 import { LocalstorageService } from '../../../shared/services/local-storage.service';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { environment } from '../../../../environments/environment';
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [NzFormModule, ReactiveFormsModule, NzInputModule, NzButtonModule, NzCardModule],
+  imports: [NzFormModule, ReactiveFormsModule, NzInputModule, NzButtonModule, NzCardModule, NzIconModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -53,5 +55,10 @@ export class LoginComponent {
         this.loading = false;
       }
     })
+  }
+
+  loginWithDiscord() {
+    window.location.href = 
+    `https://discord.com/oauth2/authorize?client_id=${environment.discordClientId}&response_type=code&redirect_uri=${encodeURIComponent(environment.discordRedirectUri)}&scope=identify`;
   }
 }

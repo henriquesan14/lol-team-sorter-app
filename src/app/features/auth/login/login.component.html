@@ -22,6 +22,10 @@
         </nz-form-control>
       </nz-form-item>
       <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" [nzLoading]="loading">Entrar</button>
+      <button type="button" (click)="loginWithDiscord()" nz-button class="login-form-button login-form-margin" [nzType]="'default'">
+        Entrar com discord
+        <span nz-icon nzType="discord"></span>
+      </button>
     </form>
   </nz-card>
 </div>

@@ -1,3 +1,6 @@
 export const environment = {
-    apiUrl: 'https://lol-team-sorter-production.up.railway.app/api'
+    apiUrl: '',
+    production: true,
+    discordClientId: '',
+    discordRedirectUri: '',
 };
