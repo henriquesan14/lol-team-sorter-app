@@ -5,5 +5,6 @@ export interface User {
     name: string
     username: string
     group: Group
+    avatarUrl?: string
     disabled: boolean
   }
