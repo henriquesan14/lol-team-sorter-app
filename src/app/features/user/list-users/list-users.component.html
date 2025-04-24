@@ -13,6 +13,7 @@
         <tr>
           <th [nzChecked]="checked" [nzIndeterminate]="indeterminate" nzLabel="Select all"
             (nzCheckedChange)="onAllChecked($event)"></th>
+          <th></th>
           <th>Name</th>
           <th>Username</th>
           <th>Group</th>
@@ -24,6 +25,9 @@
         <tr>
           <td [nzChecked]="setOfCheckedId.has(user.id)" [nzLabel]="user.name"
             (nzCheckedChange)="onItemChecked(user.id, $event)"></td>
+          <td>
+            <img class="avatar-user" [src]="user.avatarUrl || '/images/icon-lol.png'" alt="">
+          </td>
           <td>{{ user.name }}</td>
           <td>{{ user.username }}</td>
           <td>{{ user.group.name }}</td>
