@@ -57,7 +57,7 @@ export class MainLayoutComponent {
 
   get avatar(){
     const response = this.localStorageService.getAuthStorage();
-    if(response.user.avatarUrl){
+    if(response && response.user.avatarUrl){
       return response.user.avatarUrl;
     }
     return '/images/icon-lol.png';
