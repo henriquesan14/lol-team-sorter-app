@@ -2,19 +2,18 @@ import { HttpErrorResponse, HttpHandlerFn, HttpRequest } from "@angular/common/h
 import { LocalstorageService } from "../../shared/services/local-storage.service";
 import { environment } from "../../../environments/environment";
 import { inject } from "@angular/core";
-import { catchError, switchMap, throwError } from "rxjs";
+import { catchError, finalize, switchMap, throwError } from "rxjs";
 import { AuthService } from "../../shared/services/auth.service";
 import { Router } from "@angular/router";
-import { ToastrService } from "ngx-toastr";
 
+let isRefreshing = false;
 export const AccessTokenInterceptor = (req: HttpRequest<unknown>, next: HttpHandlerFn) => {
   const localStorageService = inject(LocalstorageService);
   const authService = inject(AuthService);
+  const router = inject(Router);
   const localUser = localStorageService.getAuthStorage();
   const n = environment.apiUrl.length;
   const requestToAPI = req.url.substring(0, n) === environment.apiUrl;
-  const router = inject(Router);
-
 
   const addAuthHeader = (token: string) =>
     req.clone({
@@ -26,7 +25,9 @@ export const AccessTokenInterceptor = (req: HttpRequest<unknown>, next: HttpHand
   const handle401 = (error: HttpErrorResponse) => {
     const refreshToken = localUser?.refreshToken;
 
-    if (error.status === 401 && refreshToken) {
+    if (error.status === 401 && refreshToken && !isRefreshing) {
+      isRefreshing = true;
+
       return authService.refreshToken({ refreshToken }).pipe(
         switchMap((auth) => {
           localStorageService.setAuthStorage(auth);
@@ -37,6 +38,9 @@ export const AccessTokenInterceptor = (req: HttpRequest<unknown>, next: HttpHand
           localStorageService.removeAuthStorage();
           router.navigateByUrl('/');
           return throwError(() => refreshErr);
+        }),
+        finalize(() => {
+          isRefreshing = false;
         })
       );
     }
