@@ -61,8 +61,14 @@
                 <i nz-icon nzType="setting" class="me-1"></i>
                 Atualizar senha
               </li>
-              <li nz-menu-item (click)="logout()">
-                <i nz-icon nzType="logout" class="me-1"></i>
+              <li nz-menu-item (click)="logout()" [nzDisabled]="isLoggingOut">
+                @if(!isLoggingOut){
+                  <i nz-icon nzType="logout" class="me-1"></i>
+                }@else{
+                  <span class="me-1" style="display: inline-block; vertical-align: middle;">
+                    <nz-spin [nzSize]="'small'"></nz-spin>
+                  </span>
+                }
                 Sair
               </li>
             </ul>

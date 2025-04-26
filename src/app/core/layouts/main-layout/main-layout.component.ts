@@ -7,11 +7,15 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzDropdownMenuComponent, NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { LocalstorageService } from '../../../shared/services/local-storage.service';
 import { HasRoleDirective } from '../../../shared/directives/has-role.directive';
+import { AuthService } from '../../../shared/services/auth.service';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 @Component({
   selector: 'app-main-layout',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterOutlet, NzIconModule, NzLayoutModule, NzMenuModule, RouterModule, NzDropdownMenuComponent, NzDropDownModule, HasRoleDirective],
+  imports: [CommonModule, RouterLink, RouterOutlet, NzIconModule, NzLayoutModule, NzMenuModule, RouterModule, NzDropdownMenuComponent, NzDropDownModule, HasRoleDirective,
+    NzSpinModule
+  ],
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.css'
 })
@@ -19,6 +23,9 @@ export class MainLayoutComponent {
   isCollapsed = false;
   private router = inject(Router);
   private localStorageService = inject(LocalstorageService);
+  private authService = inject(AuthService);
+
+  isLoggingOut = false;
 
   menuItems = [
     {
@@ -46,8 +53,15 @@ export class MainLayoutComponent {
   }
   
   logout() {
-    this.localStorageService.removeAuthStorage();
-    this.router.navigateByUrl('/login');
+    this.isLoggingOut = true;
+    const refreshToken = this.localStorageService.getAuthStorage().refreshToken;
+    this.authService.logout(refreshToken).subscribe({
+      next: () => {
+        this.localStorageService.removeAuthStorage();
+        this.router.navigateByUrl('/login');
+        this.isLoggingOut = false;
+      }
+    })
   }
 
   get nomeUsuario(){
@@ -57,7 +71,7 @@ export class MainLayoutComponent {
 
   get avatar(){
     const response = this.localStorageService.getAuthStorage();
-    if(response.user.avatarUrl){
+    if(response && response.user.avatarUrl){
       return response.user.avatarUrl;
     }
     return '/images/icon-lol.png';
