@@ -81,6 +81,10 @@
     margin: 24px;
     overflow: auto;
   }
+
+  nz-spin {
+    vertical-align: middle;
+  }
   
   .inner-content {
     padding: 24px;

@@ -20,4 +20,8 @@ export class AuthService {
     refreshToken(refreshToken: RefreshToken): Observable<ResponseLogin>{
       return this.http.post<ResponseLogin>(`${this.API}/refresh-token`, refreshToken);
     }
+
+    logout(refreshToken: string){
+      return this.http.post(`${this.API}/logout`, {refreshToken});
+    }
 }
