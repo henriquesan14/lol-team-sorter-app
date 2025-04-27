@@ -6,6 +6,9 @@ import { PlayerDetailsComponent } from '../../player/player-details/player-detai
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { ToastrService } from 'ngx-toastr';
+import { MatchmakingService } from '../../../shared/services/matchmaking.service';
+import { Team } from '../../../core/models/team.interface';
 
 @Component({
   selector: 'app-matchmaking-result',
@@ -16,6 +19,8 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 })
 export class MatchmakingResultComponent {
   private modal = inject(NzModalService);
+  private toastr = inject(ToastrService);
+  private matchmakingService = inject(MatchmakingService);
   
   @Input({required: true})matchmakingResult!: Matchmaking;
   constructor(@Inject(NZ_MODAL_DATA) @Optional() public data?: { matchmaking: Matchmaking }) {
@@ -34,5 +39,20 @@ export class MatchmakingResultComponent {
         },
         nzFooter: null
       });
-    }
+  }
+
+  selecionarVencedor(teamId: string): void {
+    this.matchmakingService.finishMatch(this.matchmakingResult.id, teamId)
+      .subscribe({
+        next: () => {
+          this.toastr.success('Partida finalizada com sucesso!');
+          this.matchmakingResult.winningTeam = {
+            id: teamId
+          } as Team;
+        },
+        error: () => {
+          this.toastr.error('Erro ao finalizar a partida.');
+        }
+      });
+  }
 }

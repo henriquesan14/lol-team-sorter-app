@@ -35,4 +35,8 @@ export class MatchmakingService {
   deleteMatchmakingsBatch(matchmakingIds: string[]){
       return this.http.post(`${this.API}/delete`, {matchmakingIds});
   }
+
+  finishMatch(matchmakingId: string, winningTeamId: string){
+    return this.http.post(`${this.API}/finish`, {matchmakingId, winningTeamId});
+  }
 }
