@@ -1,0 +1,39 @@
+.ranking-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .ranking-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .ranking-table {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .player-name {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .gold {
+    background-color: #ffe58f;
+  }
+  
+  .silver {
+    background-color: #d6e4ff;
+  }
+  
+  .bronze {
+    background-color: #ffd591;
+  }
+  
+  .no-data {
+    text-align: center;
+    font-style: italic;
+  }

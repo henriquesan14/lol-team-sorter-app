@@ -34,7 +34,8 @@ export class MainLayoutComponent {
       permission: 'VIEW_MATCHMAKING',
       children: [
         { label: 'Novo', link: 'matchmaking/generate', permission: 'GENERATE_MATCHMAKING' },
-        { label: 'Histórico', link: 'matchmaking/list', permission: 'VIEW_MATCHMAKING' }
+        { label: 'Histórico', link: 'matchmaking/list', permission: 'VIEW_MATCHMAKING' },
+        { label: 'Ranking', link: 'player/ranking', permission: 'VIEW_PLAYER' },
       ]
     },
     {

@@ -10,5 +10,6 @@ export interface Player {
     stars: number
     tierWeight: number
     riotId: string
+    victories: number
     disabled: boolean
   }
