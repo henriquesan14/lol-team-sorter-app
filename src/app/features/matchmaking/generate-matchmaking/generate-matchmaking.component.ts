@@ -53,7 +53,7 @@ export class GenerateMatchmakingComponent implements OnInit, OnDestroy {
   }
 
   getPlayers(){
-    this.playerService.getPlayers()
+    this.playerService.getPlayers(null)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (res) => {

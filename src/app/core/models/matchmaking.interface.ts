@@ -5,6 +5,7 @@ export interface Matchmaking {
     mode: string
     blueTeam: Team
     redTeam: Team
+    winningTeam: Team
     createdAt: string
     disabled: boolean
 }

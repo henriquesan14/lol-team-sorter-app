@@ -22,6 +22,16 @@
               </ul>
             <p>Total Stars: {{ matchmakingResult.blueTeam.totalStars }}</p>
             <p>Average Tier Weight: {{ matchmakingResult.blueTeam.averageTierWeight }}</p>
+            
+            @if(!matchmakingResult.winningTeam){
+              <button nz-button nz-type="primary" nzBlock (click)="selecionarVencedor(matchmakingResult.blueTeam.id)">🏆 Selecionar como vencedor</button>
+            }
+            @if(matchmakingResult.winningTeam && matchmakingResult.winningTeam.id == matchmakingResult.blueTeam.id){
+              <div class="winner-announcement">
+                <h3>🏆 Vencedor</h3>
+              </div>
+            }
+            
         </div>
 
         <div class="team-box red-team">
@@ -45,6 +55,15 @@
               </ul>
             <p>Total Stars: {{ matchmakingResult.redTeam.totalStars }}</p>
             <p>Average Tier Weight: {{ matchmakingResult.redTeam.averageTierWeight }}</p>
-        </div>
+            
+            @if(!matchmakingResult.winningTeam){
+              <button nz-button nz-type="primary" nzBlock (click)="selecionarVencedor(matchmakingResult.redTeam.id)">🏆 Selecionar como vencedor</button>
+            }
+            @if(matchmakingResult.winningTeam && matchmakingResult.winningTeam.id == matchmakingResult.redTeam.id){
+              <div class="winner-announcement">
+                <h3>🏆 Vencedor</h3>
+              </div>
+            }
+        </div>            
     </div>
 </div>
