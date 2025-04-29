@@ -13,6 +13,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideToastr } from 'ngx-toastr';
 import { ErrorHandlerInterceptor } from './core/interceptors/error-handle.interceptor';
 import { AccessTokenInterceptor } from './core/interceptors/access-token.interceptor';
+import { CredentialsInterceptor } from './core/interceptors/credentials.interceptor';
 
 registerLocaleData(pt);
 
@@ -20,7 +21,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(withInterceptors([AccessTokenInterceptor, ErrorHandlerInterceptor])),
+    provideHttpClient(withInterceptors([CredentialsInterceptor, AccessTokenInterceptor, ErrorHandlerInterceptor])),
     provideNzIcons(icons),
     provideNzI18n(pt_BR),
     importProvidersFrom(FormsModule),

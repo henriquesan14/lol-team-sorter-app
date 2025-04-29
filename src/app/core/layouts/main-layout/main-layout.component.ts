@@ -55,10 +55,9 @@ export class MainLayoutComponent {
   
   logout() {
     this.isLoggingOut = true;
-    const refreshToken = this.localStorageService.getAuthStorage().refreshToken;
-    this.authService.logout(refreshToken).subscribe({
+    this.authService.logout().subscribe({
       next: () => {
-        this.localStorageService.removeAuthStorage();
+        this.localStorageService.removeUsertorage();
         this.router.navigateByUrl('/login');
         this.isLoggingOut = false;
       }
@@ -66,14 +65,14 @@ export class MainLayoutComponent {
   }
 
   get nomeUsuario(){
-    const response = this.localStorageService.getAuthStorage();
-    return response?.user.name;
+    const response = this.localStorageService.getUserStorage();
+    return response?.name;
   }
 
   get avatar(){
-    const response = this.localStorageService.getAuthStorage();
-    if(response && response.user.avatarUrl){
-      return response.user.avatarUrl;
+    const response = this.localStorageService.getUserStorage();
+    if(response && response.avatarUrl){
+      return response.avatarUrl;
     }
     return '/images/icon-lol.png';
   }

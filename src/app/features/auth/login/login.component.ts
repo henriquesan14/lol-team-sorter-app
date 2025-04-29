@@ -47,7 +47,7 @@ export class LoginComponent {
     const credentials = this.loginForm.value as Credentials;
     this.authService.login(credentials).subscribe({
       next: (res) => {
-        this.localStorageService.setAuthStorage(res);
+        this.localStorageService.setUserStorage(res);
         this.router.navigate(['/matchmaking/generate']);
         this.loading = false;
       },

@@ -3,8 +3,7 @@ import { Credentials } from '../../core/models/credentials.interface';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { ResponseLogin } from '../../core/models/response-login.interface';
-import { RefreshToken } from '../../core/models/refresh-token.interface';
+import { User } from '../../core/models/user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -13,15 +12,15 @@ export class AuthService {
     private API: string = `${environment.apiUrl}/auth`;
     constructor(private http: HttpClient) { }
   
-    login(credentials: Credentials): Observable<ResponseLogin>{
-      return this.http.post<ResponseLogin>(`${this.API}`, credentials);
+    login(credentials: Credentials): Observable<User>{
+      return this.http.post<User>(`${this.API}`, credentials);
     }
 
-    refreshToken(refreshToken: RefreshToken): Observable<ResponseLogin>{
-      return this.http.post<ResponseLogin>(`${this.API}/refresh-token`, refreshToken);
+    refreshToken(): Observable<User>{
+      return this.http.post<User>(`${this.API}/refresh-token`, {});
     }
 
-    logout(refreshToken: string){
-      return this.http.post(`${this.API}/logout`, {refreshToken});
+    logout(){
+      return this.http.post(`${this.API}/logout`, {},);
     }
 }

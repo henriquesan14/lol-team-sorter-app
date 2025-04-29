@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ResponseLogin } from '../../core/models/response-login.interface';
 import { User } from '../../core/models/user.interface';
 
 @Injectable({
@@ -9,23 +8,17 @@ export class LocalstorageService {
 
   constructor() { }
 
-  setAuthStorage(data: any){
+  setUserStorage(data: User){
     const dataString = JSON.stringify(data);
-    localStorage.setItem('auth', dataString);
+    localStorage.setItem('user', dataString);
   }
 
-  setUserStorage(newUser: User){
-    let auth = this.getAuthStorage();
-    auth.user = newUser;
-    localStorage.setItem('auth', JSON.stringify(auth));
-  }
-
-  getAuthStorage(): ResponseLogin{
-    const dataString = localStorage.getItem('auth');
+  getUserStorage(): User{
+    const dataString = localStorage.getItem('user');
     return JSON.parse(dataString!);
   }
 
-  removeAuthStorage(){
-    localStorage.removeItem('auth');
+  removeUsertorage(){
+    localStorage.removeItem('user');
   }
 }

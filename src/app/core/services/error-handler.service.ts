@@ -11,13 +11,13 @@ export class ErrorHandlerService {
   localStorageService = inject(LocalstorageService);
 
   handleErrors(res: HttpErrorResponse): void {
-    const auth = this.localStorageService.getAuthStorage();
+    const auth = this.localStorageService.getUserStorage();
     if (res.status == 403) {
       this.toastr.error('Você não tem permissão para isso.');
       return;
     }
     if (res.status == 401 && auth) {
-      this.localStorageService.removeAuthStorage();
+      this.localStorageService.removeUsertorage();
       return;
     }
     if (res.error.errors) {
