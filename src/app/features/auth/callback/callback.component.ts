@@ -22,9 +22,9 @@ export class CallbackComponent {
 
     if (base64Data) {
       const json = atob(base64Data);
-      const authResponse = JSON.parse(json);
+      const userResponse = JSON.parse(json);
 
-      this.localStorageService.setAuthStorage(authResponse);
+      this.localStorageService.setUserStorage(userResponse);
 
       this.router.navigate(['/matchmaking/generate']);
     } else {

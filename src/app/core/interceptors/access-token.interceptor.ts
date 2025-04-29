@@ -11,31 +11,25 @@ export const AccessTokenInterceptor = (req: HttpRequest<unknown>, next: HttpHand
   const localStorageService = inject(LocalstorageService);
   const authService = inject(AuthService);
   const router = inject(Router);
-  const localUser = localStorageService.getAuthStorage();
-  const n = environment.apiUrl.length;
-  const requestToAPI = req.url.substring(0, n) === environment.apiUrl;
+  const localUser = localStorageService.getUserStorage();
 
-  const addAuthHeader = (token: string) =>
-    req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+  const requestToAPI = req.url.startsWith(environment.apiUrl);
+
+  const authReq = requestToAPI
+    ? req.clone({ withCredentials: true })
+    : req;
 
   const handle401 = (error: HttpErrorResponse) => {
-    const refreshToken = localUser?.refreshToken;
-
-    if (error.status === 401 && refreshToken && !isRefreshing) {
+    if (error.status === 401 && localUser && !isRefreshing) {
       isRefreshing = true;
 
-      return authService.refreshToken({ refreshToken }).pipe(
+      return authService.refreshToken().pipe(
         switchMap((auth) => {
-          localStorageService.setAuthStorage(auth);
-          const retryReq = addAuthHeader(auth.accessToken);
-          return next(retryReq);
+          localStorageService.setUserStorage(auth);
+          return next(authReq);
         }),
         catchError((refreshErr) => {
-          localStorageService.removeAuthStorage();
+          localStorageService.removeUsertorage();
           router.navigateByUrl('/');
           return throwError(() => refreshErr);
         }),
@@ -47,8 +41,6 @@ export const AccessTokenInterceptor = (req: HttpRequest<unknown>, next: HttpHand
 
     return throwError(() => error);
   };
-
-  const authReq = requestToAPI && localUser ? addAuthHeader(localUser.accessToken) : req;
   return next(authReq).pipe(catchError(handle401));
 
 }

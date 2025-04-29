@@ -5,7 +5,7 @@ import { inject } from "@angular/core";
 export const UnauthenticadedGuard: CanActivateFn = (next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean => {
     const storageService = inject(LocalstorageService);
     const router = inject(Router);
-    if (storageService.getAuthStorage()) {
+    if (storageService.getUserStorage()) {
         router.navigateByUrl('/matchmaking/generate');
         return false;
     }
